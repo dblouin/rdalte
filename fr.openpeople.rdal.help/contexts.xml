@@ -1,0 +1,11 @@
+<contexts>
+	<context
+	  id = "rdal_view">
+	  <description>This is the rdal view .</description>
+	  <topic href = "html/gettingstarted/subtopic.html"
+	  		label = "using view"/>
+	  </context>
+
+
+
+ </contexts>

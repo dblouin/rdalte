@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.eclipse.help.toc">
+      <toc
+            file="toc.xml"
+            primary="true">
+      </toc>
+      <toc
+            file="tocgettingstarted.xml">
+      </toc>
+      <toc
+            file="tocreference.xml">
+      </toc>
+   </extension>
+    <extension
+         point="org.eclipse.help.contexts">
+         <contexts
+         	file = "contexts.xml"
+         	plugin = "fr.openpeople.rdal.ide">
+         </contexts>
+         
+	</extension>
+    <!--extension
+          point="org.eclipse.ui.cheatsheets.cheatSheetContent">
+       <category
+             id="fr.openpeople.rdal.help.cheatsheets"
+             name="RDAL">
+       </category>
+       <cheatsheet
+             category="fr.openpeople.rdal.help.cheatsheets"
+             composite="false"
+             contentFile="cheatsheets/rdalSheet.xml"
+             id="fr.openpeople.rdal.help.cheatsheet"
+             name="RDAL Help">
+       </cheatsheet>
+    </extension-->
+</plugin>

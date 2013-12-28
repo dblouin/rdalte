@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xmi:XMI xmi:version="2.1" xmlns:xmi="http://schema.omg.org/spec/XMI/2.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Ecore="http://www.eclipse.org/uml2/schemas/Ecore/5" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/3.0.0/UML" xsi:schemaLocation="http://www.eclipse.org/uml2/schemas/Ecore/5 pathmap://UML_PROFILES/Ecore.profile.uml#_z1OFcHjqEdy8S4Cr8Rc_NA">
+  <uml:Model xmi:id="_HnxiwEUaEeGxFuN_nsITDA" name="settings">
+    <packagedElement xmi:type="uml:Class" xmi:id="_HnxiwUUaEeGxFuN_nsITDA" name="IdentifiedElement" isAbstract="true">
+      <ownedAttribute xmi:id="_HnxiwkUaEeGxFuN_nsITDA" name="id" visibility="public" isOrdered="true">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EString"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_Hnxiw0UaEeGxFuN_nsITDA"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_HnxixEUaEeGxFuN_nsITDA" name="name" visibility="public" isOrdered="true">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EString"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_HnxixUUaEeGxFuN_nsITDA"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_HnxixkUaEeGxFuN_nsITDA" name="description" visibility="public" isOrdered="true">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EString"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_Hnxix0UaEeGxFuN_nsITDA"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_HnxiyEUaEeGxFuN_nsITDA" name="ModelingLanguageAssociations">
+      <generalization xmi:id="_HnxiyUUaEeGxFuN_nsITDA" general="_HnxiwUUaEeGxFuN_nsITDA"/>
+      <ownedAttribute xmi:id="_HnxiykUaEeGxFuN_nsITDA" name="specification" type="_Hnxiz0UaEeGxFuN_nsITDA" isOrdered="true" association="_Hnxi40UaEeGxFuN_nsITDA"/>
+      <ownedAttribute xmi:id="_Hnxiy0UaEeGxFuN_nsITDA" name="language" type="_Hnxi2UUaEeGxFuN_nsITDA" isOrdered="true" association="_Hnxi9kUaEeGxFuN_nsITDA"/>
+      <ownedAttribute xmi:id="_HnxizEUaEeGxFuN_nsITDA" name="typesAssociations" type="_Hnxi-EUaEeGxFuN_nsITDA" isOrdered="true" aggregation="composite" association="_HnxjAkUaEeGxFuN_nsITDA">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_HnxizUUaEeGxFuN_nsITDA" value="*"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_HnxizkUaEeGxFuN_nsITDA"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_Hnxiz0UaEeGxFuN_nsITDA" name="SettingsSpecification">
+      <generalization xmi:id="_Hnxi0EUaEeGxFuN_nsITDA" general="_HnxiwUUaEeGxFuN_nsITDA"/>
+      <ownedAttribute xmi:id="_Hnxi0UUaEeGxFuN_nsITDA" name="languages" type="_Hnxi2UUaEeGxFuN_nsITDA" isOrdered="true" aggregation="composite" association="_Hnxi4EUaEeGxFuN_nsITDA">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_Hnxi0kUaEeGxFuN_nsITDA" value="*"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_Hnxi00UaEeGxFuN_nsITDA" name="languageAssociations" type="_HnxiyEUaEeGxFuN_nsITDA" isOrdered="true" aggregation="composite" association="_Hnxi40UaEeGxFuN_nsITDA">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_Hnxi1EUaEeGxFuN_nsITDA" value="*"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_Hnxi1UUaEeGxFuN_nsITDA"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_Hnxi1kUaEeGxFuN_nsITDA" name="categoryAssociations" type="_Hnxi5EUaEeGxFuN_nsITDA" isOrdered="true" aggregation="composite" association="_Hnxi9EUaEeGxFuN_nsITDA">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_Hnxi10UaEeGxFuN_nsITDA" value="*"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_Hnxi2EUaEeGxFuN_nsITDA"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_Hnxi2UUaEeGxFuN_nsITDA" name="ModelingLanguage">
+      <generalization xmi:id="_Hnxi2kUaEeGxFuN_nsITDA" general="_HnxiwUUaEeGxFuN_nsITDA"/>
+      <ownedAttribute xmi:id="_Hnxi20UaEeGxFuN_nsITDA" name="specification" type="_Hnxiz0UaEeGxFuN_nsITDA" isOrdered="true" association="_Hnxi4EUaEeGxFuN_nsITDA"/>
+      <ownedAttribute xmi:id="_Hnxi3EUaEeGxFuN_nsITDA" name="packages" isOrdered="true" association="_Hnxi4UUaEeGxFuN_nsITDA">
+        <type xmi:type="uml:Class" href="ecore.uml#_HmlQZ0UaEeGxFuN_nsITDA"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_Hnxi3UUaEeGxFuN_nsITDA" value="*"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_Hnxi3kUaEeGxFuN_nsITDA" name="fileExtensions" visibility="public" isOrdered="true">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EString"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_Hnxi30UaEeGxFuN_nsITDA" value="*"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_Hnxi4EUaEeGxFuN_nsITDA" memberEnd="_Hnxi0UUaEeGxFuN_nsITDA _Hnxi20UaEeGxFuN_nsITDA"/>
+    <packagedElement xmi:type="uml:Association" xmi:id="_Hnxi4UUaEeGxFuN_nsITDA" memberEnd="_Hnxi3EUaEeGxFuN_nsITDA _Hnxi4kUaEeGxFuN_nsITDA">
+      <ownedEnd xmi:id="_Hnxi4kUaEeGxFuN_nsITDA" type="_Hnxi2UUaEeGxFuN_nsITDA" association="_Hnxi4UUaEeGxFuN_nsITDA"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_Hnxi40UaEeGxFuN_nsITDA" memberEnd="_Hnxi00UaEeGxFuN_nsITDA _HnxiykUaEeGxFuN_nsITDA"/>
+    <packagedElement xmi:type="uml:Class" xmi:id="_Hnxi5EUaEeGxFuN_nsITDA" name="PropertyToCategoriesAssociation">
+      <generalization xmi:id="_Hnxi5UUaEeGxFuN_nsITDA" general="_Hnxi6UUaEeGxFuN_nsITDA"/>
+      <ownedAttribute xmi:id="_Hnxi5kUaEeGxFuN_nsITDA" name="associatedCategories" type="_HnxjA0UaEeGxFuN_nsITDA" isOrdered="true" aggregation="composite" association="_Hnxi8kUaEeGxFuN_nsITDA">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_Hnxi50UaEeGxFuN_nsITDA" value="*"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_Hnxi6EUaEeGxFuN_nsITDA"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_Hnxi6UUaEeGxFuN_nsITDA" name="PropertyAssociation" isAbstract="true">
+      <generalization xmi:id="_Hnxi6kUaEeGxFuN_nsITDA" general="_HnxiwUUaEeGxFuN_nsITDA"/>
+      <ownedAttribute xmi:id="_Hnxi60UaEeGxFuN_nsITDA" name="property" isOrdered="true" association="_Hnxi7kUaEeGxFuN_nsITDA">
+        <type xmi:type="uml:Class" href="ecore.uml#_HmlRMUUaEeGxFuN_nsITDA"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_Hnxi7EUaEeGxFuN_nsITDA" name="containerClass" isOrdered="true" association="_Hnxi8EUaEeGxFuN_nsITDA">
+        <type xmi:type="uml:Class" href="ecore.uml#_HmlQkUUaEeGxFuN_nsITDA"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_Hnxi7UUaEeGxFuN_nsITDA"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_Hnxi7kUaEeGxFuN_nsITDA" memberEnd="_Hnxi60UaEeGxFuN_nsITDA _Hnxi70UaEeGxFuN_nsITDA">
+      <ownedEnd xmi:id="_Hnxi70UaEeGxFuN_nsITDA" type="_Hnxi6UUaEeGxFuN_nsITDA" association="_Hnxi7kUaEeGxFuN_nsITDA"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_Hnxi8EUaEeGxFuN_nsITDA" memberEnd="_Hnxi7EUaEeGxFuN_nsITDA _Hnxi8UUaEeGxFuN_nsITDA">
+      <ownedEnd xmi:id="_Hnxi8UUaEeGxFuN_nsITDA" type="_Hnxi6UUaEeGxFuN_nsITDA" association="_Hnxi8EUaEeGxFuN_nsITDA"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_Hnxi8kUaEeGxFuN_nsITDA" memberEnd="_Hnxi5kUaEeGxFuN_nsITDA _Hnxi80UaEeGxFuN_nsITDA">
+      <ownedEnd xmi:id="_Hnxi80UaEeGxFuN_nsITDA" type="_Hnxi5EUaEeGxFuN_nsITDA" association="_Hnxi8kUaEeGxFuN_nsITDA"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_Hnxi9EUaEeGxFuN_nsITDA" memberEnd="_Hnxi1kUaEeGxFuN_nsITDA _Hnxi9UUaEeGxFuN_nsITDA">
+      <ownedEnd xmi:id="_Hnxi9UUaEeGxFuN_nsITDA" type="_Hnxiz0UaEeGxFuN_nsITDA" association="_Hnxi9EUaEeGxFuN_nsITDA"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_Hnxi9kUaEeGxFuN_nsITDA" memberEnd="_Hnxiy0UaEeGxFuN_nsITDA _Hnxi90UaEeGxFuN_nsITDA">
+      <ownedEnd xmi:id="_Hnxi90UaEeGxFuN_nsITDA" type="_HnxiyEUaEeGxFuN_nsITDA" association="_Hnxi9kUaEeGxFuN_nsITDA"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_Hnxi-EUaEeGxFuN_nsITDA" name="PropertyToTypesAssociation">
+      <generalization xmi:id="_Hnxi-UUaEeGxFuN_nsITDA" general="_HnxiwUUaEeGxFuN_nsITDA"/>
+      <generalization xmi:id="_Hnxi-kUaEeGxFuN_nsITDA" general="_Hnxi6UUaEeGxFuN_nsITDA"/>
+      <ownedAttribute xmi:id="_Hnxi-0UaEeGxFuN_nsITDA" name="associatedTypes" isOrdered="true" association="_HnxjAEUaEeGxFuN_nsITDA">
+        <type xmi:type="uml:Class" href="ecore.uml#_HmlQkUUaEeGxFuN_nsITDA"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_Hnxi_EUaEeGxFuN_nsITDA" value="*"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_Hnxi_UUaEeGxFuN_nsITDA"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_Hnxi_kUaEeGxFuN_nsITDA" name="parent" type="_HnxiyEUaEeGxFuN_nsITDA" isOrdered="true" association="_HnxjAkUaEeGxFuN_nsITDA"/>
+      <ownedAttribute xmi:id="_Hnxi_0UaEeGxFuN_nsITDA" name="containers" visibility="public" isOrdered="true">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/EcorePrimitiveTypes.library.uml#EBoolean"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_HnxjAEUaEeGxFuN_nsITDA" memberEnd="_Hnxi-0UaEeGxFuN_nsITDA _HnxjAUUaEeGxFuN_nsITDA">
+      <ownedEnd xmi:id="_HnxjAUUaEeGxFuN_nsITDA" type="_Hnxi-EUaEeGxFuN_nsITDA" association="_HnxjAEUaEeGxFuN_nsITDA"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_HnxjAkUaEeGxFuN_nsITDA" memberEnd="_HnxizEUaEeGxFuN_nsITDA _Hnxi_kUaEeGxFuN_nsITDA"/>
+    <packagedElement xmi:type="uml:Class" xmi:id="_HnxjA0UaEeGxFuN_nsITDA" name="Category">
+      <generalization xmi:id="_HnxjBEUaEeGxFuN_nsITDA" general="_HnxiwUUaEeGxFuN_nsITDA"/>
+      <ownedAttribute xmi:id="_HnxjBUUaEeGxFuN_nsITDA" name="subCategories" type="_HnxjA0UaEeGxFuN_nsITDA" isOrdered="true" association="_HnxjCkUaEeGxFuN_nsITDA">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_HnxjBkUaEeGxFuN_nsITDA" value="*"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_HnxjB0UaEeGxFuN_nsITDA"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_HnxjCEUaEeGxFuN_nsITDA" name="parentCategory" type="_HnxjA0UaEeGxFuN_nsITDA" isOrdered="true" association="_HnxjCkUaEeGxFuN_nsITDA">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_HnxjCUUaEeGxFuN_nsITDA"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_HnxjCkUaEeGxFuN_nsITDA" memberEnd="_HnxjCEUaEeGxFuN_nsITDA _HnxjBUUaEeGxFuN_nsITDA"/>
+    <profileApplication xmi:id="_HnxjC0UaEeGxFuN_nsITDA">
+      <eAnnotations xmi:id="_HnxjDEUaEeGxFuN_nsITDA" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="pathmap://UML_PROFILES/Ecore.profile.uml#_z1OFcHjqEdy8S4Cr8Rc_NA"/>
+      </eAnnotations>
+      <appliedProfile href="pathmap://UML_PROFILES/Ecore.profile.uml#_0"/>
+    </profileApplication>
+  </uml:Model>
+  <Ecore:EPackage xmi:id="_HnxjDUUaEeGxFuN_nsITDA" base_Package="_HnxiwEUaEeGxFuN_nsITDA" nsPrefix="settings" nsURI="http:///www.lab-sticc.fr/settings"/>
+  <Ecore:EClass xmi:id="_HnxjDkUaEeGxFuN_nsITDA" base_Class="_HnxiwUUaEeGxFuN_nsITDA"/>
+  <Ecore:EAttribute xmi:id="_HnxjD0UaEeGxFuN_nsITDA" base_Property="_HnxiwkUaEeGxFuN_nsITDA"/>
+  <Ecore:EAttribute xmi:id="_HnxjEEUaEeGxFuN_nsITDA" base_Property="_HnxixEUaEeGxFuN_nsITDA"/>
+  <Ecore:EAttribute xmi:id="_HnxjEUUaEeGxFuN_nsITDA" base_Property="_HnxixkUaEeGxFuN_nsITDA"/>
+  <Ecore:EClass xmi:id="_HnxjEkUaEeGxFuN_nsITDA" base_Class="_HnxiyEUaEeGxFuN_nsITDA"/>
+  <Ecore:EReference xmi:id="_HnxjE0UaEeGxFuN_nsITDA" base_Property="_HnxiykUaEeGxFuN_nsITDA"/>
+  <Ecore:EReference xmi:id="_HnxjFEUaEeGxFuN_nsITDA" base_Property="_Hnxiy0UaEeGxFuN_nsITDA"/>
+  <Ecore:EReference xmi:id="_HnxjFUUaEeGxFuN_nsITDA" base_Property="_HnxizEUaEeGxFuN_nsITDA"/>
+  <Ecore:EClass xmi:id="_HnxjFkUaEeGxFuN_nsITDA" base_Class="_Hnxiz0UaEeGxFuN_nsITDA"/>
+  <Ecore:EReference xmi:id="_HnxjF0UaEeGxFuN_nsITDA" base_Property="_Hnxi0UUaEeGxFuN_nsITDA"/>
+  <Ecore:EReference xmi:id="_HnxjGEUaEeGxFuN_nsITDA" base_Property="_Hnxi00UaEeGxFuN_nsITDA"/>
+  <Ecore:EReference xmi:id="_HnxjGUUaEeGxFuN_nsITDA" base_Property="_Hnxi1kUaEeGxFuN_nsITDA"/>
+  <Ecore:EClass xmi:id="_HnxjGkUaEeGxFuN_nsITDA" base_Class="_Hnxi2UUaEeGxFuN_nsITDA"/>
+  <Ecore:EReference xmi:id="_HnxjG0UaEeGxFuN_nsITDA" base_Property="_Hnxi20UaEeGxFuN_nsITDA"/>
+  <Ecore:EReference xmi:id="_HnxjHEUaEeGxFuN_nsITDA" base_Property="_Hnxi3EUaEeGxFuN_nsITDA"/>
+  <Ecore:EAttribute xmi:id="_HnxjHUUaEeGxFuN_nsITDA" base_Property="_Hnxi3kUaEeGxFuN_nsITDA"/>
+  <Ecore:EClass xmi:id="_HnxjHkUaEeGxFuN_nsITDA" base_Class="_Hnxi5EUaEeGxFuN_nsITDA"/>
+  <Ecore:EReference xmi:id="_HnxjH0UaEeGxFuN_nsITDA" base_Property="_Hnxi5kUaEeGxFuN_nsITDA"/>
+  <Ecore:EClass xmi:id="_HnxjIEUaEeGxFuN_nsITDA" base_Class="_Hnxi6UUaEeGxFuN_nsITDA"/>
+  <Ecore:EReference xmi:id="_HnxjIUUaEeGxFuN_nsITDA" base_Property="_Hnxi60UaEeGxFuN_nsITDA"/>
+  <Ecore:EReference xmi:id="_HnxjIkUaEeGxFuN_nsITDA" base_Property="_Hnxi7EUaEeGxFuN_nsITDA"/>
+  <Ecore:EClass xmi:id="_HnxjI0UaEeGxFuN_nsITDA" base_Class="_Hnxi-EUaEeGxFuN_nsITDA"/>
+  <Ecore:EReference xmi:id="_HnxjJEUaEeGxFuN_nsITDA" base_Property="_Hnxi-0UaEeGxFuN_nsITDA"/>
+  <Ecore:EReference xmi:id="_HnxjJUUaEeGxFuN_nsITDA" base_Property="_Hnxi_kUaEeGxFuN_nsITDA"/>
+  <Ecore:EAttribute xmi:id="_HnxjJkUaEeGxFuN_nsITDA" base_Property="_Hnxi_0UaEeGxFuN_nsITDA"/>
+  <Ecore:EClass xmi:id="_HnxjJ0UaEeGxFuN_nsITDA" base_Class="_HnxjA0UaEeGxFuN_nsITDA"/>
+  <Ecore:EReference xmi:id="_HnxjKEUaEeGxFuN_nsITDA" base_Property="_HnxjBUUaEeGxFuN_nsITDA"/>
+  <Ecore:EReference xmi:id="_HnxjKUUaEeGxFuN_nsITDA" base_Property="_HnxjCEUaEeGxFuN_nsITDA"/>
+</xmi:XMI>

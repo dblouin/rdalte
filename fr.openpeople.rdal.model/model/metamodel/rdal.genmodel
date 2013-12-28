@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/fr.openpeople.rdal.model/src"
+    editDirectory="/fr.openpeople.rdal.model.edit/src" editorDirectory="/fr.openpeople.rdal.model.editor/src"
+    modelPluginID="fr.openpeople.rdal.model" modelName="Rdal" editPluginClass="fr.openpeople.rdal.model.core.provider.RdalEditPlugin"
+    editorPluginClass="fr.openpeople.rdal.model.core.presentation.RdalEditorPlugin"
+    testSuiteClass="fr.openpeople.rdal.model.tests.RdalAllTests" importerID="org.eclipse.emf.importer.ecore"
+    complianceLevel="6.0" copyrightFields="false" editPluginID="fr.openpeople.rdal.model.edit"
+    editorPluginID="fr.openpeople.rdal.model.editor" usedGenPackages="platform:/plugin/fr.labsticc.framework.constraints.model/model/constraints.genmodel#//constraints ../../../fr.labsticc.framework.settings.model/model/settings.genmodel#//settings">
+  <foreignModel>rdal.ecore</foreignModel>
+  <genPackages prefix="Core" basePackage="fr.openpeople.rdal.model" disposableProviderFactory="true"
+      ecorePackage="rdal.ecore#/">
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="rdal.ecore#//Direction">
+      <genEnumLiterals ecoreEnumLiteral="rdal.ecore#//Direction/In"/>
+      <genEnumLiterals ecoreEnumLiteral="rdal.ecore#//Direction/Out"/>
+      <genEnumLiterals ecoreEnumLiteral="rdal.ecore#//Direction/InOut"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="rdal.ecore#//AssumptionType">
+      <genEnumLiterals ecoreEnumLiteral="rdal.ecore#//AssumptionType/Technical"/>
+      <genEnumLiterals ecoreEnumLiteral="rdal.ecore#//AssumptionType/Organizational"/>
+      <genEnumLiterals ecoreEnumLiteral="rdal.ecore#//AssumptionType/Managerial"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="rdal.ecore#//RiskKind">
+      <genEnumLiterals ecoreEnumLiteral="rdal.ecore#//RiskKind/High"/>
+      <genEnumLiterals ecoreEnumLiteral="rdal.ecore#//RiskKind/Medium"/>
+      <genEnumLiterals ecoreEnumLiteral="rdal.ecore#//RiskKind/Low"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="rdal.ecore#//VerificationMethod">
+      <genEnumLiterals ecoreEnumLiteral="rdal.ecore#//VerificationMethod/Analysis"/>
+      <genEnumLiterals ecoreEnumLiteral="rdal.ecore#//VerificationMethod/Demonstration"/>
+      <genEnumLiterals ecoreEnumLiteral="rdal.ecore#//VerificationMethod/Inspection"/>
+      <genEnumLiterals ecoreEnumLiteral="rdal.ecore#//VerificationMethod/Test"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="rdal.ecore#//AgregationType">
+      <genEnumLiterals ecoreEnumLiteral="rdal.ecore#//AgregationType/Composition"/>
+      <genEnumLiterals ecoreEnumLiteral="rdal.ecore#//AgregationType/Alternative"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="rdal.ecore#//VariableType">
+      <genEnumLiterals ecoreEnumLiteral="rdal.ecore#//VariableType/Monitored"/>
+      <genEnumLiterals ecoreEnumLiteral="rdal.ecore#//VariableType/Controlled"/>
+      <genEnumLiterals ecoreEnumLiteral="rdal.ecore#//VariableType/Both"/>
+    </genEnums>
+    <genDataTypes ecoreDataType="rdal.ecore#//Ratio"/>
+    <genDataTypes ecoreDataType="rdal.ecore#//PositiveFactor"/>
+    <genDataTypes ecoreDataType="rdal.ecore#//Date"/>
+    <genClasses image="false" ecoreClass="rdal.ecore#//IdentifiedElement">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute rdal.ecore#//IdentifiedElement/id"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute rdal.ecore#//IdentifiedElement/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute rdal.ecore#//IdentifiedElement/description"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="rdal.ecore#//ContractualElement">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference rdal.ecore#//ContractualElement/changeUncertainty"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute rdal.ecore#//ContractualElement/sources"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute rdal.ecore#//ContractualElement/originDate"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute rdal.ecore#//ContractualElement/scheduleDate"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference rdal.ecore#//ContractualElement/stakeholders"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference rdal.ecore#//ContractualElement/evolvedTo"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference rdal.ecore#//ContractualElement/tracedTo"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference rdal.ecore#//ContractualElement/category"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference rdal.ecore#//ContractualElement/satisfiedBy"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference rdal.ecore#//ContractualElement/agents"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference rdal.ecore#//ContractualElement/derivedFrom"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute rdal.ecore#//ContractualElement/dropped"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute rdal.ecore#//ContractualElement/droppingReason"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute rdal.ecore#//ContractualElement/satisfactionLevel"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference rdal.ecore#//ContractualElement/rationales"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute rdal.ecore#//ContractualElement/timeCriticality"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EReference rdal.ecore#//ContractualElement/contactInformation"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference rdal.ecore#//ContractualElement/expression"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference rdal.ecore#//ContractualElement/condition"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference rdal.ecore#//ContractualElement/modes"/>
+    </genClasses>
+    <genClasses ecoreClass="rdal.ecore#//Uncertainty">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute rdal.ecore#//Uncertainty/volatility"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute rdal.ecore#//Uncertainty/costsImpact"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute rdal.ecore#//Uncertainty/scheduleImpact"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute rdal.ecore#//Uncertainty/precedence"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute rdal.ecore#//Uncertainty/riskIndex"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute rdal.ecore#//Uncertainty/propRiskIndex"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute rdal.ecore#//Uncertainty/maturityIndex"/>
+    </genClasses>
+    <genClasses ecoreClass="rdal.ecore#//VerifiableElement">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute rdal.ecore#//VerifiableElement/verified"/>
+    </genClasses>
+    <genClasses ecoreClass="rdal.ecore#//Specification">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference rdal.ecore#//Specification/actors"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference rdal.ecore#//Specification/systOverview"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference rdal.ecore#//Specification/requirementGroups"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference rdal.ecore#//Specification/verificationActivities"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference rdal.ecore#//Specification/conflicts"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference rdal.ecore#//Specification/constraintLanguagesSpecification"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference rdal.ecore#//Specification/specifies"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference rdal.ecore#//Specification/primaryActors"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute rdal.ecore#//Specification/version"/>
+    </genClasses>
+    <genClasses ecoreClass="rdal.ecore#//SystemOverview">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference rdal.ecore#//SystemOverview/goals"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference rdal.ecore#//SystemOverview/systemToBe"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference rdal.ecore#//SystemOverview/contexts"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference rdal.ecore#//SystemOverview/systemBoundary"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute rdal.ecore#//SystemOverview/purpose"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute rdal.ecore#//SystemOverview/capabilities"/>
+    </genClasses>
+    <genClasses ecoreClass="rdal.ecore#//SystemContext">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference rdal.ecore#//SystemContext/globalSystem"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference rdal.ecore#//SystemContext/actors"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference rdal.ecore#//SystemContext/systemBoundary"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference rdal.ecore#//SystemContext/systemModes"/>
+    </genClasses>
+    <genClasses ecoreClass="rdal.ecore#//Actor">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference rdal.ecore#//Actor/images"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference rdal.ecore#//Actor/interactions"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute rdal.ecore#//Actor/address"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute rdal.ecore#//Actor/email"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute rdal.ecore#//Actor/phoneNumber"/>
+    </genClasses>
+    <genClasses ecoreClass="rdal.ecore#//Interaction">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference rdal.ecore#//Interaction/entity"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute rdal.ecore#//Interaction/direction"/>
+    </genClasses>
+    <genClasses ecoreClass="rdal.ecore#//Goal">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference rdal.ecore#//Goal/conflicts"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute rdal.ecore#//Goal/priority"/>
+    </genClasses>
+    <genClasses ecoreClass="rdal.ecore#//Conflict">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference rdal.ecore#//Conflict/goals"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute rdal.ecore#//Conflict/degree"/>
+    </genClasses>
+    <genClasses ecoreClass="rdal.ecore#//Stakeholder">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference rdal.ecore#//Stakeholder/contractualElements"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference rdal.ecore#//Stakeholder/rationales"/>
+    </genClasses>
+    <genClasses ecoreClass="rdal.ecore#//RequirementsGroup">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference rdal.ecore#//RequirementsGroup/requirements"/>
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference rdal.ecore#//RequirementsGroup/specification"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="rdal.ecore#//AbstractRequirement">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference rdal.ecore#//AbstractRequirement/containedRequirements"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference rdal.ecore#//AbstractRequirement/verifiedBy"/>
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference rdal.ecore#//AbstractRequirement/group"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute rdal.ecore#//AbstractRequirement/risk"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference rdal.ecore#//AbstractRequirement/assignedVariable"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference rdal.ecore#//AbstractRequirement/conditionVariables"/>
+    </genClasses>
+    <genClasses ecoreClass="rdal.ecore#//Requirement">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference rdal.ecore#//Requirement/refinedBY"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference rdal.ecore#//Requirement/assumptions"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference rdal.ecore#//Requirement/imageAssumption"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference rdal.ecore#//Requirement/derivations"/>
+    </genClasses>
+    <genClasses ecoreClass="rdal.ecore#//Assumption">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference rdal.ecore#//Assumption/requirements"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute rdal.ecore#//Assumption/type"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference rdal.ecore#//Assumption/imageRequirement"/>
+    </genClasses>
+    <genClasses ecoreClass="rdal.ecore#//VerificationActivity">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference rdal.ecore#//VerificationActivity/requirement"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute rdal.ecore#//VerificationActivity/verificationMethod"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference rdal.ecore#//VerificationActivity/externalRef"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute rdal.ecore#//VerificationActivity/passed"/>
+    </genClasses>
+    <genClasses ecoreClass="rdal.ecore#//RefExpressionCollectedModelElements">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference rdal.ecore#//RefExpressionCollectedModelElements/queryExpression"/>
+    </genClasses>
+    <genClasses ecoreClass="rdal.ecore#//RefUserSelectedModelElements"/>
+    <genClasses image="false" ecoreClass="rdal.ecore#//ReferencedModelElements">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference rdal.ecore#//ReferencedModelElements/modelElementReferences"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute rdal.ecore#//ReferencedModelElements/agregationType"/>
+    </genClasses>
+    <genClasses ecoreClass="rdal.ecore#//ModelElementReference">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference rdal.ecore#//ModelElementReference/modelElement"/>
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference rdal.ecore#//ModelElementReference/parent"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute rdal.ecore#//ModelElementReference/weight"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute rdal.ecore#//ModelElementReference/verifies"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute rdal.ecore#//ModelElementReference/satisfactionLevel"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute rdal.ecore#//ModelElementReference/reason"/>
+    </genClasses>
+    <genClasses ecoreClass="rdal.ecore#//Trace">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference rdal.ecore#//Trace/specifications"/>
+      <genOperations ecoreOperation="rdal.ecore#//Trace/modelElementReference">
+        <genParameters ecoreParameter="rdal.ecore#//Trace/modelElementReference/modelElement"/>
+      </genOperations>
+    </genClasses>
+    <genClasses ecoreClass="rdal.ecore#//TraceModelElementReference">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute rdal.ecore#//TraceModelElementReference/container"/>
+      <genOperations ecoreOperation="rdal.ecore#//TraceModelElementReference/merge">
+        <genParameters ecoreParameter="rdal.ecore#//TraceModelElementReference/merge/modelElementReference"/>
+      </genOperations>
+    </genClasses>
+    <genClasses ecoreClass="rdal.ecore#//RequirementsCoverageData">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute rdal.ecore#//RequirementsCoverageData/nbRequirements"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute rdal.ecore#//RequirementsCoverageData/verificationLevel"/>
+    </genClasses>
+    <genClasses ecoreClass="rdal.ecore#//Variable">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference rdal.ecore#//Variable/feature"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute rdal.ecore#//Variable/type"/>
+    </genClasses>
+    <genClasses ecoreClass="rdal.ecore#//RefDerivedModelElements"/>
+    <genClasses ecoreClass="rdal.ecore#//Rationale">
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference rdal.ecore#//Rationale/contract"/>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>

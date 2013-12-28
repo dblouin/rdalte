@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension-point id="coverageListers" name="coverageListers" schema="schema/coverageListers.exsd"/>
+   <extension-point id="editorHandlers" name="editorHandlers" schema="schema/editorHandlers.exsd"/>
+   <extension
+         point="org.eclipse.ui.views">
+      <category
+            id="fr.openpeople.rdal.View.category.ID"
+            name="RDAL">
+      </category>
+      <view
+            category="fr.openpeople.rdal.View.category.ID"
+            class="fr.openpeople.rdal.ide.view.AdvancedRdalEditingViewPart"
+            icon="icons/advancedEditingView.gif"
+            id="fr.openpeople.rdal.ide.view.AdvancedRdalEditingViewPart"
+            name="%view.advancedediting.name">
+         <description>
+            %view.advancedediting.description
+         </description>
+      </view>
+   </extension>
+   <extension
+         id="rdalBuilder"
+         name="RDAL Project Builder"
+         point="org.eclipse.core.resources.builders">
+      <builder
+            hasNature="true">
+         <run
+               class="fr.openpeople.rdal.ide.builder.RDALBuilder">
+         </run>
+      </builder>
+   </extension>
+   <extension
+         id="rdalNature"
+         name="RDAL Project Nature"
+         point="org.eclipse.core.resources.natures">
+      <runtime>
+         <run
+               class="fr.openpeople.rdal.ide.builder.RDALNature">
+         </run>
+      </runtime>
+      <builder
+            id="fr.openpeople.rdal.ide.rdalBuilder">
+      </builder>
+   </extension>
+   <extension
+         point="org.eclipse.ui.popupMenus">
+      <objectContribution
+            adaptable="true"
+            id="fr.openpeople.rdal.ide.enableRdalNature"
+            nameFilter="*"
+            objectClass="org.eclipse.core.resources.IProject">
+         <action
+               class="fr.openpeople.rdal.ide.builder.EnableRDALNatureActionDelegate"
+               enablesFor="+"
+               id="fr.openpeople.rdal.ide.builder.EnableRADLNatureAction"
+               label="Enable RDAL Nature"
+               menubarPath="additions">
+         </action>
+         <visibility>
+            <not>
+               <objectState
+                     name="projectNature"
+                     value="fr.openpeople.rdal.ide.rdalNature">
+               </objectState>
+            </not>
+         </visibility>
+      </objectContribution>
+      <objectContribution
+            adaptable="true"
+            id="fr.openpeople.rdal.ide.rdalNature"
+            nameFilter="*"
+            objectClass="org.eclipse.core.resources.IProject">
+         <action
+               class="fr.openpeople.rdal.ide.builder.DisableRDALNatureActionDelegate"
+               enablesFor="+"
+               id="fr.openpeople.rdal.ide.builder.DisableRADLNatureAction"
+               label="Disable RDAL Nature"
+               menubarPath="additions">
+         </action>
+         <visibility>
+           <objectState
+                 name="projectNature"
+                 value="fr.openpeople.rdal.ide.rdalNature">
+           </objectState>
+         </visibility>
+      </objectContribution>
+   </extension>
+   <extension
+         id="rdalSatisfactionProblem"
+         name="RDAL Satisfaction Problem"
+         point="org.eclipse.core.resources.markers">
+      <persistent
+            value="true">
+      </persistent>
+   </extension>
+   <extension
+         point="fr.openpeople.rdal.ide.editorHandlers">
+      <handler
+            class="fr.openpeople.rdal.ide.view.RdalDiagramEditorHandler">
+      </handler>
+   </extension>
+
+</plugin>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding = "UTF-8"?>
+	<cheatsheet title = "rdal help" skip="true">
+		<intro>
+			<description>
+			This cheat sheet shows you how to create a rdal diagram and
+			try it out.you will create a rdal diagram project step by step.
+			
+			If you need help at any step,chick the (?) to the right.Let's get started!
+			</description>
+		</intro>
+	
+		<item 
+		href="/fr.openpeople.rdal.help/html/gettingstarted/maintopic.html" title = "Creat a new rdal diagram project" skip="true">
+			<action
+				pluginId="fr.openpeople.rdal.help"
+				class="fr.openpeople.rdal.help.ShowHelpaction"/>
+				<description>
+				In the main toolbar,click on the 
+					<b>New->Rdal Diagram</b> or click <b>File->New->Rdal Diagram</b>
+				</description>
+		</item>
+		<item title = "add a new nodes">
+			
+				<description>
+				if you want add a new nodes in your diagram, just click an icon under <b>Nodes</b> which you can find in right toolbar,
+				and put you mouse in the diagram and draw a figure with the size you want,after that you can enter its name. <b>attention</b>!
+				the <b>Requirement</b> can only exist in the <b>RequirementGroup</b> element.
+				</description>
+				
+		</item>
+		<item title = "add links">
+				<description>
+				if you want add a liens between  your elements, just click an icon under <b>Links between Requirement</b> which you can find in right toolbar,
+				</description>
+		</item>
+
+	</cheatsheet>

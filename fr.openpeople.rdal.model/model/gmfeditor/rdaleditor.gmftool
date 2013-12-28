@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gmftool:ToolRegistry xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:gmftool="http://www.eclipse.org/gmf/2005/ToolDefinition">
+  <allMenus
+      xsi:type="gmftool:ContextMenu"
+      default="//@allMenus.0/@items.0">
+    <items
+        xsi:type="gmftool:MenuAction"
+        title="ValidateReq">
+      <icon
+          xsi:type="gmftool:DefaultImage"/>
+    </items>
+    <items
+        xsi:type="gmftool:PredefinedItem"
+        identifier="contextMenuValidation"/>
+  </allMenus>
+  <palette
+      title="RequirementsPalette">
+    <tools
+        xsi:type="gmftool:ToolGroup"
+        title="Nodes"
+        collapsible="true">
+      <tools
+          xsi:type="gmftool:CreationTool"
+          title="Requirement"
+          description="Create a New Requirement">
+        <smallIcon
+            xsi:type="gmftool:BundleImage"
+            path="/icons/obj16/requirement.gif"
+            bundle="fr.openpeople.rdal.model.diagram"/>
+        <largeIcon
+            xsi:type="gmftool:DefaultImage"/>
+      </tools>
+      <tools
+          xsi:type="gmftool:CreationTool"
+          title="Requirements Group"
+          description="Create a New Requirements Group">
+        <smallIcon
+            xsi:type="gmftool:BundleImage"
+            path="/icons/obj16/requirementGroup.gif"
+            bundle="fr.openpeople.rdal.model.diagram"/>
+        <largeIcon
+            xsi:type="gmftool:DefaultImage"/>
+      </tools>
+      <tools
+          xsi:type="gmftool:CreationTool"
+          title="Stakeholder"
+          description="Who is concerned by this requirement?">
+        <smallIcon
+            xsi:type="gmftool:BundleImage"
+            path="/icons/obj16/stakeHolder.gif"
+            bundle="fr.openpeople.rdal.model.diagram"/>
+        <largeIcon
+            xsi:type="gmftool:DefaultImage"/>
+      </tools>
+      <tools
+          xsi:type="gmftool:CreationTool"
+          title="Verification Activity"
+          description="How will you verify that this requirement is fullfilled by the system?">
+        <smallIcon
+            xsi:type="gmftool:BundleImage"
+            path="/icons/obj16/verificationActivity.gif"
+            bundle="fr.openpeople.rdal.model.diagram"/>
+        <largeIcon
+            xsi:type="gmftool:DefaultImage"/>
+      </tools>
+      <tools
+          xsi:type="gmftool:CreationTool"
+          title="Assumption"
+          description="Create a New Assumption">
+        <smallIcon
+            xsi:type="gmftool:BundleImage"
+            path="/icons/obj16/assumption.gif"
+            bundle="fr.openpeople.rdal.model.diagram"/>
+        <largeIcon
+            xsi:type="gmftool:DefaultImage"/>
+      </tools>
+    </tools>
+    <tools
+        xsi:type="gmftool:ToolGroup"
+        title="Links between Requirements"
+        collapsible="true">
+      <tools
+          xsi:type="gmftool:CreationTool"
+          title="Req Decomposed To"
+          description="Requirement is Decomposed to finer Requirements">
+        <smallIcon
+            xsi:type="gmftool:BundleImage"
+            path="/icons/obj16/decomposition.gif"
+            bundle="fr.openpeople.rdal.model.diagram"/>
+        <largeIcon
+            xsi:type="gmftool:DefaultImage"/>
+      </tools>
+      <tools
+          xsi:type="gmftool:CreationTool"
+          title="Req Derived From"
+          description="Requirement is Derived From Another Requirement">
+        <smallIcon
+            xsi:type="gmftool:BundleImage"
+            path="/icons/obj16/derived.gif"
+            bundle="fr.openpeople.rdal.model.diagram"/>
+        <largeIcon
+            xsi:type="gmftool:DefaultImage"/>
+      </tools>
+      <tools
+          xsi:type="gmftool:CreationTool"
+          title="Req Refined By"
+          description="Requirement is Refined By Another Requirement">
+        <smallIcon
+            xsi:type="gmftool:BundleImage"
+            path="/icons/obj16/refined.gif"
+            bundle="fr.openpeople.rdal.model.diagram"/>
+        <largeIcon
+            xsi:type="gmftool:DefaultImage"/>
+      </tools>
+      <tools
+          xsi:type="gmftool:CreationTool"
+          title="Req Assumes"
+          description="Requirement Depends on Assumptions">
+        <smallIcon
+            xsi:type="gmftool:BundleImage"
+            path="/icons/obj16/assumes.gif"
+            bundle="fr.openpeople.rdal.model.diagram"/>
+        <largeIcon
+            xsi:type="gmftool:DefaultImage"/>
+      </tools>
+    </tools>
+    <tools
+        xsi:type="gmftool:ToolGroup"
+        title="Other Links"
+        collapsible="true">
+      <tools
+          xsi:type="gmftool:CreationTool"
+          title="Link To StakeHolder"
+          description="Link to StakeHolder of the requirement">
+        <smallIcon
+            xsi:type="gmftool:BundleImage"
+            path="/icons/obj16/linkStakeholder.gif"
+            bundle="fr.openpeople.rdal.model.diagram"/>
+        <largeIcon
+            xsi:type="gmftool:DefaultImage"/>
+      </tools>
+      <tools
+          xsi:type="gmftool:CreationTool"
+          title="Link To Verification Activity"
+          description="Link to the Verification Activity of the Requirement">
+        <smallIcon
+            xsi:type="gmftool:BundleImage"
+            path="/icons/obj16/linkTestcase.gif"
+            bundle="fr.openpeople.rdal.model.diagram"/>
+        <largeIcon
+            xsi:type="gmftool:DefaultImage"/>
+      </tools>
+    </tools>
+  </palette>
+</gmftool:ToolRegistry>

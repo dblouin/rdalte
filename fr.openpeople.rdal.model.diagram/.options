@@ -1,0 +1,7 @@
+# Tracing options for the fr.openpeople.rdal.model.diagram plug-in
+
+# Common issues
+fr.openpeople.rdal.model.diagram/debug=false
+
+# Visual IDs
+fr.openpeople.rdal.model.diagram/debug/visualID=false
