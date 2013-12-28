@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.eclipse.ui.newWizards">
+      <category
+            id="fr.openpeople.rdalte.osate.examples.category"
+            name="%exampleCategoryName"
+            parentCategory="org.eclipse.ui.Examples">
+      </category>
+      <wizard
+            canFinishEarly="true"
+            category="org.eclipse.ui.Examples/fr.openpeople.rdalte.osate.examples.category"
+            class="fr.openpeople.rdalte.osate.examples.FPGAExamplesWizard"
+            hasPages="false"
+            id="fr.openpeople.rdalte.osate.examples.ExamplesWizard"
+            name="%exampleWizardNameFPGA"
+            project="true">
+         <description>
+            %exampleWizardDescrFPGA
+         </description>
+      </wizard>
+      <wizard
+            canFinishEarly="true"
+            category="org.eclipse.ui.Examples/fr.openpeople.rdalte.osate.examples.category"
+            class="fr.openpeople.rdalte.osate.examples.IsoletteExamplesWizard"
+            hasPages="false"
+            id="fr.openpeople.rdalte.osate.examples.ExamplesWizard"
+            name="%exampleWizardNameIsolette"
+            project="true">
+         <description>
+            %exampleWizardDescrIsolette
+         </description>
+      </wizard>
+   </extension>
+
+</plugin>

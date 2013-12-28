@@ -1,0 +1,38 @@
+-- *****************************************************************************************
+-- ** Copyright (c) 2009 Lab-STICC, Université de Bretagne-Sud.                           **
+-- ** All rights reserved. This program and the accompanying materials                    **
+-- ** are made available under the terms of the CeCILL-B FREE SOFTWARE LICENSE AGREEMENT  **
+-- ** which accompanies this distribution, and is available at                            **
+-- ** http://www.cecill.info/licences/Licence_CeCILL-B_V1-en.html                         **
+-- **                                                                                     **
+-- ** Contributors:                                                                       **
+-- **   Dominique BLOUIN (Lab-STICC, UBS)                                                    **
+-- *****************************************************************************************
+
+package aadl2
+
+--context ECore::EString 
+	--def: startsWith( p_string : String ) : 
+		--Boolean =
+        	--p_string.size() <= size() and substring( 1, p_string.size() ) = p_string
+ 
+--context String 
+	--def: endsWith( p_string : String ) :
+		--Boolean =
+        	--let
+				--start : Integer = size() - p_string.size() + 1 
+			--in
+            	--start > 0 and substring( start, size() ) = p_string
+
+context SystemImplementation def : fpgaSubcomponentsCle() : 
+	Bag( Subcomponent ) = 
+		ownedSubcomponent->select( oclIsKindOf( ProcessorSubcomponent ) )->
+			select( isOfType( 'IP_Core' ) or isOfType( 'DSP_Block' ) or isOfType( 'FPGA_Processor' ) )->
+				collect( oclAsType( Subcomponent ) )->
+			union( ownedSubcomponent->select( oclIsKindOf( DeviceSubcomponent ) )->
+				select( isOfType( 'FPGA_Device' ) ) )->flatten()
+
+context instance::ComponentInstance def : isIP() :
+	Boolean = isProcessor() and isOfType( 'generic_fpga::IP_Core' )
+
+endpackage

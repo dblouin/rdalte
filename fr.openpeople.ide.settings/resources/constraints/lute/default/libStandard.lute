@@ -1,0 +1,34 @@
+-- *****************************************************************************************
+-- ** Copyright (c) 2012 Lab-STICC, Université de Bretagne-Sud.                           **
+-- ** All rights reserved. This program and the accompanying materials                    **
+-- ** are made available under the terms of the CeCILL-B FREE SOFTWARE LICENSE AGREEMENT  **
+-- ** which accompanies this distribution, and is available at                            **
+-- ** http://www.cecill.info/licences/Licence_CeCILL-B_V1-en.html                         **
+-- **                                                                                     **
+-- ** Contributors:                                                                       **
+-- **   Dominique BLOUIN (Lab-STICC, UBS)                                                 **
+-- *****************************************************************************************
+
+-- Properties
+DEPLOY_PROPERTY_SET_NAME := "Deployment_Properties::";
+ACTUAL_PROCESSOR_BINDING_PROP_NAME := Concat( DEPLOY_PROPERTY_SET_NAME, "Actual_Processor_Binding" );
+
+COMM_PROPERTY_SET_NAME := "Communication_Properties::";
+LATENCY_PROP_NAME := Concat( COMM_PROPERTY_SET_NAME, "Latency" );
+ACTUAL_LATENCY_PROP_NAME := Concat( COMM_PROPERTY_SET_NAME, "Actual_Latency" );
+
+-- Time Units Constants
+PSEC_UNIT := "ps";
+NSEC_UNIT := "ns";
+USEC_UNIT := "us";
+MSEC_UNIT := "ms";
+SEC_UNIT := "sec";
+HOUR_UNIT := "hr";
+MIN_UNIT := "min";
+
+Processor_Binding( thread ) := Property( thread, ACTUAL_PROCESSOR_BINDING_PROP_NAME );
+First_Processor_Binding( thread ) := First( Property( thread, ACTUAL_PROCESSOR_BINDING_PROP_NAME ) );
+
+Latency( element, unit ) := Property( element, LATENCY_PROP_NAME, unit ); 
+Actual_Latency( element, unit ) := Property( element, ACTUAL_LATENCY_PROP_NAME, unit ); 
+	

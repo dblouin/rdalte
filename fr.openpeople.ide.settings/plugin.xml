@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="fr.labsticc.framework.constraints.ide.constraintLanguagesModelDefaultLocation">
+      <modelLocation
+            uri="platform:/config/fr.openpeople.ide.settings/defaultConstraintsLanguages.constraints">
+      </modelLocation>
+   </extension>
+   <extension
+         point="fr.labsticc.framework.settings.ide.settingsModelDefaultLocation">
+      <modelLocation
+            uri="platform:/config/fr.openpeople.ide.settings/default.settings">
+      </modelLocation>
+   </extension>
+   <extension
+         point="org.eclipse.emf.ecore.extension_parser">
+      <parser
+            class="org.eclipse.emf.ecore.xmi.impl.EcoreResourceFactoryImpl"
+            type="jucm">
+      </parser>
+   </extension>
+	<extension
+         point="fr.labsticc.framework.emf.view.resourceHandlers">
+      <handler
+            class="fr.openpeople.ide.settings.OSATEResourceHandler">
+      </handler>
+   </extension>
+</plugin>

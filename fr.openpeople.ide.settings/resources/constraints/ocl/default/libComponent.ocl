@@ -1,0 +1,224 @@
+-- *****************************************************************************************
+-- ** Copyright (c) 2009 Lab-STICC, Universit� de Bretagne-Sud.                           **
+-- ** All rights reserved. This program and the accompanying materials                    **
+-- ** are made available under the terms of the CeCILL-B FREE SOFTWARE LICENSE AGREEMENT  **
+-- ** which accompanies this distribution, and is available at                            **
+-- ** http://www.cecill.info/licences/Licence_CeCILL-B_V1-en.html                         **
+-- **                                                                                     **
+-- ** Contributors:                                                                       **
+-- **   Dominique BLOUIN (Lab-STICC, UBS)                                                 **
+-- *****************************************************************************************
+
+package aadl2
+
+context ComponentClassifier def : isOfTypeByName( p_type : String ) :
+	Boolean =
+		let
+			qualName : String = qualifiedName()
+		in
+			if qualName.oclIsUndefined() then
+				false
+			else
+				if oclIsKindOf( ComponentImplementation ) then
+					--typePlusDot.size() <= getQualifiedName().size() and name.substring( 1, typePlusDot.size() ) = typePlusDot
+					qualName.substring( 1, p_type.size() + 1 ) = p_type
+				else
+					qualName = p_type
+				endif
+			endif
+
+context ComponentType def : isOfType( p_type : String ) :
+	Boolean =
+		if isOfTypeByName( p_type ) then
+			true
+		else
+			if extended.oclIsUndefined() then
+				false
+			else
+				extended.isOfType( p_type )
+			endif
+		endif
+
+context ComponentImplementation def : isOfType( p_type : String ) :
+	Boolean =
+		if isOfTypeByName( p_type ) then
+			true
+		else
+			if type.isOfType( p_type ) then
+				true
+			else
+				if extended.oclIsUndefined() then
+					false
+				else
+					extended.isOfType( p_type )
+				endif
+			endif
+		endif
+
+context aadl2::ComponentClassifier def : isOfType( p_type : String ) :
+	Boolean =
+		if oclIsKindOf( ComponentType ) then
+			oclAsType( ComponentType ).isOfType( p_type )
+		else
+			oclAsType( ComponentImplementation ).isOfType( p_type )
+		endif			
+
+context Subcomponent def : isOfType( p_type : String ) :
+	Boolean =
+		if oclIsKindOf( ProcessorSubcomponent ) then
+			oclAsType( ProcessorSubcomponent ).classifier.isOfType( p_type )
+		else
+			if oclIsKindOf( DeviceSubcomponent ) then
+				oclAsType( DeviceSubcomponent ).classifier.isOfType( p_type )
+			else
+				if oclIsKindOf( SystemSubcomponent ) then
+					oclAsType( SystemSubcomponent ).classifier.isOfType( p_type )
+				else
+					if oclIsKindOf( DataSubcomponent ) then
+						oclAsType( DataSubcomponent ).classifier.isOfType( p_type )
+					else
+						if oclIsKindOf( ThreadSubcomponent ) then
+							oclAsType( ThreadSubcomponent ).classifier.isOfType( p_type )
+						else
+							if oclIsKindOf( ThreadGroupSubcomponent ) then
+								oclAsType( ThreadGroupSubcomponent ).classifier.isOfType( p_type )
+							else
+								if oclIsKindOf( ProcessSubcomponent ) then
+									oclAsType( ProcessSubcomponent ).classifier.isOfType( p_type )
+								else
+									if oclIsKindOf( SubprogramSubcomponent ) then
+										oclAsType( SubprogramSubcomponent ).classifier.isOfType( p_type )
+									else
+										if oclIsKindOf( MemorySubcomponent ) then
+											oclAsType( MemorySubcomponent ).classifier.isOfType( p_type )
+										else
+											if oclIsKindOf( BusSubcomponent ) then
+												oclAsType( BusSubcomponent ).classifier.isOfType( p_type )
+											else
+												false
+											endif
+										endif
+									endif
+								endif
+							endif
+						endif
+					endif
+				endif
+			endif
+		endif
+
+context instance::ComponentInstance def : isOfType( p_type : String ) :
+	Boolean = subcomponent.isOfType( p_type )
+
+context AadlPackage def : processorTypes() : 
+	Set( Classifier ) = 
+		ownedPublicSection.ownedClassifier->select( oclIsKindOf( ProcessorType) )->
+			union( ownedPrivateSection.ownedClassifier->select( oclIsKindOf( ProcessorType ) ) )->flatten()
+
+context AadlPackage def : processorImplementations() : 
+	Set( Classifier ) = 
+		ownedPublicSection.ownedClassifier->select( oclIsKindOf( ProcessorImplementation ) )->
+			union( ownedPrivateSection.ownedClassifier->select( oclIsKindOf( ProcessorImplementation ) ) )->flatten()
+
+--/**
+-- * Return a boolean telling if this component instance is of the specified category.
+-- * @param p_category The name of the category.
+-- * @return A boolean value. True if null is passed for the category.
+-- */
+context instance::ComponentInstance def : isOfCategory( p_category : ComponentCategory ) :
+	Boolean = 
+		if p_category.oclIsUndefined() then
+			true
+		else 
+			category = p_category
+		endif
+
+context instance::ComponentInstance def : isData() :
+	Boolean = category = ComponentCategory::data
+
+context instance::ComponentInstance def : isSubprogram() :
+	Boolean = category = ComponentCategory::subprogram
+
+context instance::ComponentInstance def : isThread() :
+	Boolean = category = ComponentCategory::thread
+
+-- FIXME
+--context instance::ComponentInstance def : isThreadGroup() :
+	--Boolean = category = ComponentCategory::thread group
+
+context instance::ComponentInstance def : isProcess() :
+	Boolean = category = ComponentCategory::process
+
+context instance::ComponentInstance def : isMemory() :
+	Boolean = category = ComponentCategory::memory
+
+context instance::ComponentInstance def : isProcessor() :
+	Boolean = category = ComponentCategory::processor
+
+context instance::ComponentInstance def : isBus() :
+	Boolean = category = ComponentCategory::bus
+
+context instance::ComponentInstance def : isDevice() :
+	Boolean = category = ComponentCategory::device
+
+context instance::ComponentInstance def : isSystem() :
+	Boolean = category = ComponentCategory::system
+
+context instance::ComponentInstance def : allContainedComponents( p_category : ComponentCategory ) :
+	Set( instance::ComponentInstance ) = 
+		componentInstance->select( isOfCategory( p_category ) )->union( componentInstance->collect( allContainedComponents( p_category ) )->flatten()->asSet() )->flatten()
+
+context ecore::EObject def : parent() :
+	ecore::EObject = eContainer()
+
+context ecore::EObject def : rootParent() :
+	ecore::EObject = 
+		let
+			parent : ecore::EObject = parent()
+		in
+			if parent.oclIsUndefined() then
+				self
+			else
+				parent.rootParent()
+			endif
+		
+
+context ecore::EObject def : isContainedBy( p_container : ecore::EObject ) :
+	Boolean =
+		let
+			parent : ecore::EObject = parent()
+		in
+			if parent.oclIsUndefined() then
+				false
+			else
+				if parent = p_container then
+					true
+				else
+					parent.isContainedBy( p_container )
+				endif
+			endif
+
+context Element def : parent() :
+	ecore::EObject = oclAsType( ecore::EObject ).parent()
+
+context Element def : rootParent() :
+	ecore::EObject = oclAsType( ecore::EObject ).rootParent()
+
+context Element def : isContainedBy( p_container : Element ) :
+	Boolean = 
+		oclAsType( ecore::EObject ).isContainedBy( p_container.oclAsType( ecore::EObject ) )
+
+context Element def : allSubcomponents() :
+	Set( Element ) =
+		if oclIsKindOf( instance::ComponentInstance ) then 
+			oclAsType(  instance::ComponentInstance ).componentInstance
+		else 
+			if oclIsKindOf( ComponentImplementation ) then
+				oclAsType( ComponentImplementation ).getAllSubcomponents()
+			else
+				Set{}
+			endif
+		endif			
+
+		
+endpackage

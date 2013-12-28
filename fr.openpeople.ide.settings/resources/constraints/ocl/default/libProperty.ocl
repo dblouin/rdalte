@@ -1,0 +1,946 @@
+-- *****************************************************************************************
+-- ** Copyright (c) 2009 Lab-STICC, Université de Bretagne-Sud.                           **
+-- ** All rights reserved. This program and the accompanying materials                    **
+-- ** are made available under the terms of the CeCILL-B FREE SOFTWARE LICENSE AGREEMENT  **
+-- ** which accompanies this distribution, and is available at                            **
+-- ** http://www.cecill.info/licences/Licence_CeCILL-B_V1-en.html                         **
+-- **                                                                                     **
+-- ** Contributors:                                                                       **
+-- **   Dominique BLOUIN (Lab-STICC, UBS)                                                 **
+-- **   Jie LIAN (Lab-STICC, UBS)                                                    	  **
+-- *****************************************************************************************
+
+package aadl2
+
+----------------------------------------- Queries for Generic Properties ------------------------------------------------ 
+--context Element def : allPropertyAssociations( 	p_propertySetName : String,
+--												p_propertyName :  String ) :
+	--OrderedSet( PropertyAssociation ) =
+		--PropertyAssociation.allInstances()->select( property.name = p_propertyName )->
+			--select( property.oclAsType( ecore::EObject ).eContainer().oclAsType( PropertySet ).name = p_propertySetName )->
+				--asOrderedSet()
+
+--context NamedElement def : property( 	p_propertySetName : String,
+--										p_propertyName : String ) : 
+	--Property = 
+	--	PropertySet.allInstances()->select( name = p_propertySetName )->asOrderedSet()->first().
+		--	ownedProperty->select( name = p_propertyName )->asOrderedSet()->first()
+
+context NamedElement def : propertyValues( 	p_propertySetName : String,
+											p_propertyName : String ) :
+	OrderedSet( PropertyExpression ) = 
+		getPropertyValues( p_propertySetName, p_propertyName )->asOrderedSet()
+
+context NamedElement def : integerPropertyValues( 	p_propertySetName : String,
+													p_propertyName : String ) :
+	OrderedSet( IntegerLiteral ) = 
+		propertyValues( p_propertySetName, p_propertyName )->collect( oclAsType( IntegerLiteral ) )->asOrderedSet()
+
+context NamedElement def : integerRangePropertyValues( 	p_propertySetName : String,
+														p_propertyName : String ) :
+	OrderedSet( RangeValue ) = 
+		propertyValues( p_propertySetName, p_propertyName )->collect( oclAsType( RangeValue ) )->asOrderedSet()
+
+context NamedElement def : integerRangeMaxPropertyValues( 	p_propertySetName : String,
+															p_propertyName : String ) :
+	OrderedSet( IntegerLiteral ) = 
+		integerRangePropertyValues( p_propertySetName, p_propertyName )->collect( maximum.oclAsType( IntegerLiteral ) )->asOrderedSet()
+
+context NamedElement def : integerRangeMinPropertyValues( 	p_propertySetName : String,
+															p_propertyName : String ) :
+	OrderedSet( IntegerLiteral ) = 
+		integerRangePropertyValues( p_propertySetName, p_propertyName )->collect( minimum.oclAsType( IntegerLiteral ) )->asOrderedSet()
+
+context NamedElement def : stringPropertyValues( 	p_propertySetName : String,
+													p_propertyName : String ) :
+	OrderedSet( String ) = 
+		propertyValues( p_propertySetName, p_propertyName )->collect( oclAsType( String ) )->asOrderedSet()
+
+context NamedElement def : instanceReferencePropertyValues( p_propertySetName : String,
+															p_propertyName : String ) :
+	OrderedSet( instance::InstanceReferenceValue ) = 
+		propertyValues( p_propertySetName, p_propertyName )->collect( oclAsType( instance::InstanceReferenceValue ) )->asOrderedSet()
+
+
+context NamedElement def : instanceObjectPropertyValues( 	p_propertySetName : String,
+															p_propertyName : String ) :
+	OrderedSet( NamedElement ) = 
+		instanceReferencePropertyValues( p_propertySetName, p_propertyName )->collect( referencedInstanceObject )->asOrderedSet()
+
+context NamedElement def : realPropertyValues( 	p_propertySetName : String,
+												p_propertyName : String ) :
+	OrderedSet( RealLiteral ) = 
+		propertyValues( p_propertySetName, p_propertyName )->collect( oclAsType( RealLiteral ) )->asOrderedSet()
+
+context NamedElement def : realRangePropertyValues( p_propertySetName : String,
+													p_propertyName : String ) :
+	OrderedSet( RangeValue ) = 
+		propertyValues( p_propertySetName, p_propertyName )->collect( oclAsType( RangeValue ) )->asOrderedSet()
+
+context NamedElement def : realRangeMaxPropertyValues( 	p_propertySetName : String,
+														p_propertyName : String ) :
+	OrderedSet( RealLiteral ) = 
+		realRangePropertyValues( p_propertySetName, p_propertyName )->collect( maximum.oclAsType( RealLiteral ) )->asOrderedSet()
+
+context NamedElement def : realRangeMinPropertyValues( 	p_propertySetName : String,
+														p_propertyName : String ) :
+	OrderedSet( RealLiteral ) = 
+		realRangePropertyValues( p_propertySetName, p_propertyName )->collect( minimum.oclAsType( RealLiteral ) )->asOrderedSet()
+
+context NamedElement def : firstRealRangeMinPropertyValue( 	p_propertySetName : String,
+															p_propertyName : String ) :
+	RealLiteral = 
+		let
+			propVals : OrderedSet( RealLiteral ) = realRangeMinPropertyValues( p_propertySetName, p_propertyName )
+		in
+			if propVals->isEmpty() then
+				null
+			else
+				propVals->first()
+			endif
+
+context NamedElement def : firstRealRangeMaxPropertyValue( 	p_propertySetName : String,
+															p_propertyName : String ) :
+	RealLiteral = 
+		let
+			propVals : OrderedSet( RealLiteral ) = realRangeMaxPropertyValues( p_propertySetName, p_propertyName )
+		in
+			if propVals->isEmpty() then
+				null
+			else
+				propVals->first()
+			endif
+
+context NamedElement def : integerValues( 	p_propertySetName : String,
+											p_propertyName : String ) :
+	OrderedSet( Integer ) = integerPropertyValues( p_propertySetName, p_propertyName )->
+		collect( value * 1 )->asOrderedSet()
+
+context NamedElement def : realValues( 	p_propertySetName : String,
+										p_propertyName :  String ) :
+	OrderedSet( Real ) = realPropertyValues( p_propertySetName, p_propertyName )->
+		collect( value )->asOrderedSet()
+
+context NamedElement def : realRangeMaxValues( 	p_propertySetName : String,
+												p_propertyName : String ) :
+	OrderedSet( Real ) = 
+		-- FIXME: Manage property reference
+		realRangePropertyValues( p_propertySetName, p_propertyName )->collect( maximum.oclAsType( RealLiteral ).value )->asOrderedSet()
+
+context NamedElement def : realRangeMinValues( 	p_propertySetName : String,
+												p_propertyName : String ) :
+	OrderedSet( Real ) = 
+		-- FIXME: Manage property reference
+		realRangePropertyValues( p_propertySetName, p_propertyName )->collect( minimum.oclAsType( RealLiteral ).value )->asOrderedSet()
+
+----------------------------------------- Property Constants ------------------------------------------------ 
+context NamedElement def : aadlProjectPropertySetName() : 
+	String = 'AADL_Project'
+
+context NamedElement def : communicationPropertiesPropertySetName() : 
+	String = 'Communication_Properties'
+
+context NamedElement def : deploymentPropertiesPropertySetName() : 
+	String = 'Deployment_Properties'
+
+context NamedElement def : memoryPropertiesPropertySetName() : 
+	String = 'Memory_Properties'
+
+context NamedElement def : modelingPropertiesPropertySetName() : 
+	String = 'Modeling_Properties'
+
+context NamedElement def : programmingPropertiesPropertySetName() : 
+	String = 'Programming_Properties'
+
+context NamedElement def : threadPropertiesPropertySetName() : 
+	String = 'Thread_Properties'
+
+context NamedElement def : timingPropertiesPropertySetName() : 
+	String = 'Timing_Properties'
+
+context NamedElement def : seiPropertySetName() : 
+	String = 'SEI'
+
+-------------------- AADL Project ------------------------
+context NamedElement def : dataVolumeName() :
+	String='Data_Volume'
+
+-------------------- Timing ------------------------
+context NamedElement def : activateDeadlineName() :
+	String ='Activate_Deadline'
+
+context NamedElement def : activateExecutionTimeName() :
+	String='Activate_Execution_Time'
+
+context NamedElement def : clientSubprogramExecutionTimeName() :
+	String='Client_Subprogram_Execution_Time'
+
+context NamedElement def : clockJitterName() :
+	String='Clock_Jitter'
+
+context NamedElement def : clockPeriodName() :
+	String='Clock_Period'
+
+context NamedElement def : clockPeriodRangeName() :
+	String='Clock_Period_Range'
+
+context NamedElement def : computeDeadlineName() :
+	String='Compute_Deadline'
+
+context NamedElement def : computeExecutionTimeName() : 
+	String = 'Compute_Execution_Time'
+
+context NamedElement def : deactivateExecutionTimeName() :
+	String='Deactivate_Execution_Time'
+
+context NamedElement def : deadlineName() :
+	String='Deadline'
+
+context NamedElement def : finalizeDeadlineName() :
+	String='Finalize_Deadline'
+
+context NamedElement def : finalizeExecutionTimeName() :
+	String='Finalize_Execution_Time'
+
+context NamedElement def :initializeDeadlineName() :
+	String='Initialize_Deadline'
+
+context NamedElement def : initializeExecutionTimeName() :
+	String='Initialize_Execution_Time'
+
+context NamedElement def : loadDeadlineName() :
+	String='Load_Deadline'
+
+context NamedElement def : loadTimeName() :
+	String='Load_Time'
+
+context NamedElement def : periodName() : 
+	String = 'Period'
+
+context NamedElement def : processSwapExecutionTimeName() :
+	String='Process_Swap_Execution_Time'
+
+context NamedElement def : recoverDeadlineName() :
+	String='Recover_Deadline'
+
+context NamedElement def : recoverExecutionTimeName() :
+	String='Recover_Execution_Time'
+
+context NamedElement def : startupDeadlineName() :
+	String='Startup_Deadline'
+
+context NamedElement def : subprogramExecutionTimeName() :
+	String='Subprogram_Execution_Time'
+
+context NamedElement def : threadSwapExecutionTimeName() :
+	String='Thread_Swap_Execution_Time'
+
+-------------------- Programming ------------------------
+context NamedElement def : activateEntrypointName() :
+	String='Activate_Entrypoint'
+
+context NamedElement def : computeEntrypointName() :
+	String='Compute_Entrypoint'
+
+context NamedElement def : deactivateEntrypointName() :
+	String='Deactivate_Entrypoint'
+
+context NamedElement def : hardwareDescriptionSourceTextName() :
+	String='Hardware_Description_Source_Text'
+
+context NamedElement def : hardwareSourceLanguageName() :
+	String='Hardware_Source_Language'
+
+context NamedElement def : initializeEntrypointName() :
+	String='Initialize_Entrypoint'
+
+context NamedElement def : sourceLanguageName() :
+	String='Source_Language'
+
+context NamedElement def : sourceNameName() :
+	String='Source_Name'
+
+context NamedElement def : sourceTextName() :
+	String='Source_Text'
+
+context NamedElement def : supportedSourceLanguageName() :
+	String='Supported_Source_Language'
+
+context NamedElement def : typeSourceNameName() :
+	String='Type_Source_Name'
+
+-------------------- Thread ------------------------
+context NamedElement def : activeThreadHandlingProtocolName() :
+	String='Active_Thread_Handling_Protocol'
+
+context NamedElement def : activeThreadQueueHandlingProtocolName() :
+	String='Active_Thread_Queue_Handling_Protocol'
+
+context NamedElement def : concurrencyControlProtocolName() :
+	String='Concurrency_Control_Protocol'
+
+context NamedElement def : dequeueProtocolName() :
+	String='Dequeue_Protocol'
+
+context NamedElement def : dispatchProtocolName() :
+	String='Dispatch_Protocol'
+
+context NamedElement def : synchronizedComponentName() :
+	String='Synchronized_Component'
+
+context NamedElement def : urgencyName() :
+	String='Urgency'
+
+-------------------- Deployment ------------------------
+context NamedElement def : actualConnectionBindingName() :
+	String='Actual_Connection_Binding'
+
+context NamedElement def : actualMemoryBindingName() :
+	String='Actual_Memory_Binding'
+
+context NamedElement def : actualProcessorBindingName() :
+	String='Actual_Processor_Binding'
+
+context NamedElement def : actualSubprogramCallName() :
+	String='Actual_Subprogram_Call'
+
+context NamedElement def : actualSubprogramCallBindingName() :
+	String='Actual_Subprogram_Call_Binding'
+
+context NamedElement def : allowedConnectionBindingName() :
+	String='Allowed_Connection_Binding'
+
+context NamedElement def : allowedConnectionBindingClassName() :
+	String='Allowed_Connection_Binding_Class'
+
+context NamedElement def : allowedDispatchProtocolName() :
+	String='Allowed_Dispatch_Protocol'
+
+context NamedElement def : allowedMemoryBindingName() :
+	String='Allowed_Memory_Binding'
+
+context NamedElement def : allowedMemoryBindingClassName() :
+	String='Allowed_Memory_Binding_Class'
+
+context NamedElement def : allowedPeriodName() :
+	String='Allowed_Period'
+
+context NamedElement def : allowedProcessorBindingName() :
+	String='Allowed_Processor_Binding'
+
+context NamedElement def : allowedProcessorBindingClassName() :
+	String='Allowed_Processor_Binding_Class'
+
+context NamedElement def : allowedSubprogramCallName() :
+	String='Allowed_Subprogram_Call'
+
+context NamedElement def : allowedSubprogramCallBindingName() :
+	String='Allowed_Subprogram_Call_Binding'
+
+context NamedElement def : memoryProtocolName() :
+	String='Memory_Protocol'
+
+context NamedElement def : notCollocatedName() :
+	String='Not_Collocated'
+
+context NamedElement def : schedulingProtocolName() :
+	String='Scheduling_Protocol'
+
+context NamedElement def : threadLimitName() :
+	String='Thread_Limit'
+
+-------------------- Communication ------------------------
+context NamedElement def : actualLatencyName() :
+	String='Actual_Latency'
+
+context NamedElement def : latencyName() :
+	String='Latency'
+
+context NamedElement def : overflowHandlingProtocolName() :
+	String='Overflow_Handling_Protocol'
+
+context NamedElement def : queueProcessingProtocolName() :
+	String='Queue_Processing_Protocol'
+
+context NamedElement def : queueSizeName() :
+	String='Queue_Size'
+
+context NamedElement def : requiredConnectionName() :
+	String='Required_Connection'
+
+context NamedElement def : transmissionTimeName() :
+	String='Transmission_Time'
+
+-------------------- Memory ------------------------
+context NamedElement def : allowedMessageSizeName() :
+	String='Allowed_Message_Size'
+
+context NamedElement def : assignTimeName() :
+	String='Assign_Time'
+
+context NamedElement def : baseAddressName() :
+	String='Base_Address'
+
+context NamedElement def : deviceRegisterAddressName() :
+	String='Device_Register_Address'
+
+context NamedElement def : readTimeName() :
+	String='Read_Time'
+
+context NamedElement def : sourceCodeSizeName() :
+	String='Source_Code_Size'
+
+context NamedElement def : sourceDataSizeName() :
+	String='Source_Data_Size'
+
+context NamedElement def : sourceHeapSizeName() :
+	String='Source_Heap_Size'
+
+context NamedElement def : sourceStackSizeName() :
+	String='Source_Stack_Size'
+
+context NamedElement def : wordSizeName() :
+	String='Word_Size'
+
+context NamedElement def : wordSpaceName() :
+	String='Word_Space'
+
+context NamedElement def : writeTimeName() :
+	String='Write_Time'
+
+-------------------- SEI ------------------------
+context NamedElement def : securityLevelName() :
+	String = 'SecurityLevel'
+
+context NamedElement def : safetyCriticalityName() :
+	String = 'SafetyCriticality'
+
+context NamedElement def : streamMissRateName() :
+	String = 'StreamMissRate'
+
+context NamedElement def : netWeightName() :
+	String = 'NetWeight'
+
+context NamedElement def : grossWeightName() :
+	String = 'GrossWeight'
+
+context NamedElement def : weightLimitName() :
+	String = 'WeightLimit'
+
+context NamedElement def : weightUnitsName() :
+	String = 'WeightUnits'
+
+context NamedElement def : dataRepresentationName() :
+	String ='DataRepresentation'
+
+context NamedElement def : protocolQoSName() :
+	String ='ProtocolQoS'
+
+context NamedElement def : priorityName() :
+	String ='Priority' 
+
+context NamedElement def : partitionLatencyName() :
+	String = 'Partition_Latency'
+
+context NamedElement def : isPartitionName() :
+	String = 'Is_Partition'
+
+context NamedElement def : referenceCycleTimeName() :
+	String ='reference_cycle_time'
+
+context NamedElement def : cycleTimeName() :
+	String ='cycle_time'
+
+context NamedElement def : referenceProcessorName() :
+	String ='reference_processor'
+
+context NamedElement def : speedScalingFactorName() :
+	String ='speed_scaling_factor'
+
+context NamedElement def : cyclesPerInstructionName() :
+	String= 'cycles_per_instruction'
+
+context NamedElement def : mipsCapacityName() : 
+	String = 'MIPSCapacity'
+
+context NamedElement def : mipsBudgetName() :
+	String ='MIPSBudget'
+
+context NamedElement def : ramCapacityName() :
+	String ='RAMCapacity'
+
+context NamedElement def : ramBudgetName() :
+	String= 'RAMBudget'
+
+context NamedElement def : romCapacityName() :
+	String= 'ROMCapacity'
+
+context NamedElement def : romBudgetName () :
+	String ='ROMBudget'
+
+context NamedElement def : powerCapacityName() :
+	String ='PowerCapacity'
+
+context NamedElement def : powerBudgetName() :
+	String ='PowerBudget'
+
+context NamedElement def :powerSupplyName() :
+	String ='PowerSupply'
+
+context NamedElement def :bandWidthCapacityName() :
+	String ='BandWidthCapacity'
+
+context NamedElement def : ramActualName () :
+	String ='RAMActual'
+	
+context NamedElement def : romActualName () :
+	String ='ROMActual'
+
+----------------------------------------- Units ---------------------------------------------------- 
+-- Units constants
+context NamedElement def : psUnit() :
+	String = 'ps'
+
+context NamedElement def : nsUnit() :
+	String = 'ns'
+
+context NamedElement def : usUnit() :
+	String = 'us'
+
+context NamedElement def : msUnit() :
+	String = 'ms'
+
+context NamedElement def : secUnit() :
+	String = 'sec'
+
+context NamedElement def : minUnit() :
+	String = 'min'
+
+context NamedElement def : hrUnit() :
+	String = 'hr'
+
+-- Size Units --------
+context NamedElement def : bitsUnit():
+	String = 'bits'
+
+context NamedElement def : bUnit():
+	String = 'Bytes'
+
+context NamedElement def : kbUnit():
+	String = 'KByte'
+
+context NamedElement def : mbUnit():
+	String = 'MByte'
+
+context NamedElement def : gbUnit():
+	String = 'GByte'
+
+context NamedElement def : tbUnit():
+	String = 'TByte'
+
+-- Units conversion functions
+--context NumberValue def : unitLiteral( p_unitName : String ) : 
+	--UnitLiteral = 
+		--UnitLiteral.allInstances()->select( name = p_unitName )->asOrderedSet()->first()
+
+--context NumberValue def : convertedValue( p_unit : String ) :
+	--Real = 
+		--value * unit.getAbsoluteFactor( unitLiteral( p_unit ) )
+
+context NumberValue def : convertedValue( p_unit : String ) :
+	Real = 
+		getScaledValue( p_unit )
+
+----------------------------------------- Property Getters ------------------------------------------------ 
+
+-------------------- AADL Project ------------------------
+context NamedElement def :dataVolume() :
+	Integer = integerValues( aadlProjectPropertySetName(), dataVolumeName() )->first()
+
+-------------------- Timing ------------------------
+context NamedElement def : activateDeadline( p_unit : String ) :
+	Real = integerPropertyValues( timingPropertiesPropertySetName(), activateDeadlineName() )->first().convertedValue( p_unit )
+
+context NamedElement def : activateExecutionTimeMax( p_unit : String ) :
+	Real = integerRangeMaxPropertyValues( timingPropertiesPropertySetName(), activateExecutionTimeName() )->first().convertedValue( p_unit )
+
+context NamedElement def :clientSubprogramExecutionTime( p_unit : String ):
+	Real = integerPropertyValues( timingPropertiesPropertySetName(), clientSubprogramExecutionTimeName() )->first().convertedValue( p_unit )
+
+context NamedElement def :clockJitter() :
+	Integer = integerValues( timingPropertiesPropertySetName(), clockJitterName() )->first()
+
+context NamedElement def :clockPeriod( p_unit : String ) :
+	Real = integerPropertyValues( timingPropertiesPropertySetName(), clockPeriodName() )->first().convertedValue( p_unit )
+
+context NamedElement def :clockPeriodRangeMax( p_unit : String ) :
+	Real = integerRangeMaxPropertyValues( timingPropertiesPropertySetName(), clockPeriodRangeName() )->first().convertedValue( p_unit )
+
+context NamedElement def :clockPeriodRangeMin( p_unit : String ) :
+	Real = integerRangeMinPropertyValues( timingPropertiesPropertySetName(), clockPeriodRangeName() )->first().convertedValue( p_unit )
+
+context NamedElement def :computeDeadline() :
+	Integer = integerValues( timingPropertiesPropertySetName(), computeDeadlineName() )->first()
+
+context NamedElement def : computeExecutionTimeMax( p_unit : String ) :
+	Real = integerRangeMaxPropertyValues( timingPropertiesPropertySetName(), computeExecutionTimeName() )->first().convertedValue( p_unit )
+
+context NamedElement def : computeExecutionTimeMin( p_unit : String ) :
+	Real = integerRangeMinPropertyValues( timingPropertiesPropertySetName(), computeExecutionTimeName() )->first().convertedValue( p_unit )
+
+context NamedElement def :deactivateExecutionTimeMax( p_unit : String ) :
+	Real = integerRangeMaxPropertyValues( timingPropertiesPropertySetName(), deactivateExecutionTimeName() )->first().convertedValue( p_unit )
+
+context NamedElement def :deactivateExecutionTimeMin( p_unit : String ) :
+	Real = integerRangeMinPropertyValues( timingPropertiesPropertySetName(), deactivateExecutionTimeName() )->first().convertedValue( p_unit )
+
+context NamedElement def :deadline() :
+	Integer = integerValues( timingPropertiesPropertySetName(), deadlineName() )->first()
+
+context NamedElement def :finalizeDeadline() :
+	Integer = integerValues( timingPropertiesPropertySetName(), finalizeDeadlineName() )->first()
+
+context NamedElement def :finalizeExecutionTimeMax( p_unit : String ) :
+	Real = integerRangeMaxPropertyValues( timingPropertiesPropertySetName(), finalizeExecutionTimeName() )->first().convertedValue( p_unit )
+
+context NamedElement def :finalizeExecutionTimeMin( p_unit : String ) :
+	Real = integerRangeMinPropertyValues( timingPropertiesPropertySetName(), finalizeExecutionTimeName() )->first().convertedValue( p_unit )
+
+context NamedElement def :initializeDeadline() :
+	PropertyExpression = propertyValues( timingPropertiesPropertySetName(), initializeDeadlineName() )->first()
+
+context NamedElement def :initializeExecutionTimeMax( p_unit : String ) :
+	Real = integerRangeMaxPropertyValues( timingPropertiesPropertySetName(), initializeExecutionTimeName() )->first().convertedValue( p_unit )
+
+context NamedElement def :initializeExecutionTimeMin( p_unit : String ) :
+	Real = integerRangeMinPropertyValues( timingPropertiesPropertySetName(), initializeExecutionTimeName() )->first().convertedValue( p_unit )
+
+context NamedElement def :loadDeadline() :
+	PropertyExpression = propertyValues( timingPropertiesPropertySetName(), loadDeadlineName() )->first()
+
+context NamedElement def :loadTimeMax( p_unit : String ) :
+	Real = integerRangeMaxPropertyValues( timingPropertiesPropertySetName(), loadTimeName() )->first().convertedValue( p_unit )
+
+context NamedElement def :loadTimeMin( p_unit : String ) :
+	Real = integerRangeMinPropertyValues( timingPropertiesPropertySetName(), loadTimeName() )->first().convertedValue( p_unit )
+
+context NamedElement def :period( p_unit : String ) :
+	Real = integerPropertyValues( timingPropertiesPropertySetName(), periodName() )->first().convertedValue( p_unit )
+
+context NamedElement def :processSwapExecutionTimeMax( p_unit : String ) :
+	Real = integerRangeMaxPropertyValues( timingPropertiesPropertySetName(), processSwapExecutionTimeName() )->first().convertedValue( p_unit )
+
+context NamedElement def :processSwapExecutionTimeMin( p_unit : String ) :
+	Real = integerRangeMinPropertyValues( timingPropertiesPropertySetName(), processSwapExecutionTimeName() )->first().convertedValue( p_unit )
+
+context NamedElement def :recoverDeadline() :
+	PropertyExpression = propertyValues( timingPropertiesPropertySetName(), recoverDeadlineName())->first()
+
+context NamedElement def :recoverExecutionTimeMax( p_unit : String ) :
+	Real = integerRangeMaxPropertyValues( timingPropertiesPropertySetName(), recoverExecutionTimeName() )->first().convertedValue( p_unit )
+
+context NamedElement def :recoverExecutionTimeMin( p_unit : String ) :
+	Real = integerRangeMinPropertyValues( timingPropertiesPropertySetName(), recoverExecutionTimeName() )->first().convertedValue( p_unit )
+
+context NamedElement def :startupDeadline() :
+	PropertyExpression = propertyValues( timingPropertiesPropertySetName(), startupDeadlineName())->first()
+
+context NamedElement def :subprogramExecutionTimeMax( p_unit : String ) :
+	Real = integerRangeMaxPropertyValues( timingPropertiesPropertySetName(), subprogramExecutionTimeName() )->first().convertedValue( p_unit )
+
+context NamedElement def :subprogramExecutionTimeMin( p_unit : String ) :
+	Real = integerRangeMinPropertyValues( timingPropertiesPropertySetName(), subprogramExecutionTimeName() )->first().convertedValue( p_unit )
+
+context NamedElement def :threadSwapExecutionTimeMax( p_unit : String ) :
+	Real = integerRangeMaxPropertyValues( timingPropertiesPropertySetName(), threadSwapExecutionTimeName() )->first().convertedValue( p_unit )
+
+context NamedElement def :threadSwapExecutionTimeMin( p_unit : String ) :
+	Real = integerRangeMinPropertyValues( timingPropertiesPropertySetName(), threadSwapExecutionTimeName() )->first().convertedValue( p_unit )
+
+-------------------- Programming ------------------------
+context NamedElement def : activateEntrypoint() :
+	PropertyExpression = propertyValues( programmingPropertiesPropertySetName(), activateEntrypointName())->first()
+
+context NamedElement def :computeEntrypoint() :
+	PropertyExpression = propertyValues( programmingPropertiesPropertySetName(), computeEntrypointName())->first()
+
+context NamedElement def :deactivateEntrypoint() :
+	PropertyExpression = propertyValues( programmingPropertiesPropertySetName(), deactivateEntrypointName())->first()
+
+context NamedElement def :hardwareDescriptionSourceText() :
+	PropertyExpression = propertyValues( programmingPropertiesPropertySetName(), hardwareDescriptionSourceTextName() )->first()
+
+context NamedElement def :hardwareSourceLanguage() :
+	PropertyExpression = propertyValues( programmingPropertiesPropertySetName(), hardwareSourceLanguageName() )->first()
+
+context NamedElement def :initializeEntrypoint() :
+	PropertyExpression = propertyValues( programmingPropertiesPropertySetName(), initializeEntrypointName() )->first()
+
+context NamedElement def :sourceLanguage() :
+	PropertyExpression = propertyValues( programmingPropertiesPropertySetName(), sourceLanguageName())->first()
+
+context NamedElement def :sourceName() :
+	PropertyExpression = propertyValues( programmingPropertiesPropertySetName(), sourceNameName())->first()
+
+context NamedElement def :sourceText() :
+	PropertyExpression = propertyValues( programmingPropertiesPropertySetName(), sourceTextName())->first()
+
+context NamedElement def :supportedSourceLanguage() :
+	PropertyExpression = propertyValues( programmingPropertiesPropertySetName(), supportedSourceLanguageName())->first()
+
+context NamedElement def :typeSourceName() :
+	PropertyExpression = propertyValues( programmingPropertiesPropertySetName(), typeSourceNameName())->first()
+
+-------------------- Thread ------------------------
+context NamedElement def : activeThreadHandlingProtocol() :
+	PropertyExpression = propertyValues( threadPropertiesPropertySetName(), activeThreadHandlingProtocolName())->first()
+
+context NamedElement def : activeThreadQueueHandlingProtocol() :
+	PropertyExpression = propertyValues( threadPropertiesPropertySetName(), activeThreadQueueHandlingProtocolName())->first()
+
+context NamedElement def :concurrencyControlProtocol() :
+	PropertyExpression = propertyValues( threadPropertiesPropertySetName(), concurrencyControlProtocolName())->first()
+
+context NamedElement def :dequeueProtocol() :
+	PropertyExpression = propertyValues( threadPropertiesPropertySetName(), dequeueProtocolName())->first()
+
+context NamedElement def :dispatchProtocol() :
+	PropertyExpression = propertyValues( threadPropertiesPropertySetName(), dispatchProtocolName() )->first()
+
+context NamedElement def :synchronizedComponent() :
+	PropertyExpression = propertyValues( threadPropertiesPropertySetName(), synchronizedComponentName())->first()
+
+context NamedElement def : urgency() :
+	PropertyExpression = propertyValues( threadPropertiesPropertySetName(), urgencyName())->first()
+
+-------------------- Deployment ------------------------
+context NamedElement def : actualConnectionBinding() :
+	PropertyExpression = propertyValues( deploymentPropertiesPropertySetName(), actualConnectionBindingName())->first()
+
+context NamedElement def : actualMemoryBinding() :
+	PropertyExpression = propertyValues( deploymentPropertiesPropertySetName(), actualMemoryBindingName())->first()
+
+context ComponentClassifier def : actualProcessorBinding() :
+	PropertyExpression = propertyValues( deploymentPropertiesPropertySetName(), actualProcessorBindingName() )->first()
+
+context instance::ComponentInstance def : actualProcessorBinding() :
+	NamedElement = 
+		let
+			instValues : OrderedSet( NamedElement ) = instanceObjectPropertyValues( deploymentPropertiesPropertySetName(), actualProcessorBindingName() )
+		in
+			if instValues->isEmpty() then
+				null
+			else
+				instValues->first()
+			endif
+
+context NamedElement def : actualSubprogramCall() :
+	PropertyExpression = propertyValues( deploymentPropertiesPropertySetName(), actualSubprogramCallName())->first()
+
+context NamedElement def : actualSubprogramCallBinding() :
+	PropertyExpression = propertyValues( deploymentPropertiesPropertySetName(), actualSubprogramCallBindingName())->first()
+
+context NamedElement def :allowedConnectionBinding() :
+	PropertyExpression = propertyValues( deploymentPropertiesPropertySetName(), allowedConnectionBindingName())->first()
+
+context NamedElement def :allowedConnectionBindingClass() :
+	PropertyExpression = propertyValues( deploymentPropertiesPropertySetName(), allowedConnectionBindingClassName())->first()
+
+context NamedElement def :allowedDispatchProtocol() :
+	PropertyExpression = propertyValues( deploymentPropertiesPropertySetName(), allowedDispatchProtocolName())->first()
+
+context NamedElement def :allowedMemoryBinding() :
+	PropertyExpression = propertyValues( deploymentPropertiesPropertySetName(), allowedMemoryBindingName())->first()
+
+context NamedElement def :allowedMemoryBindingClass() :
+	PropertyExpression = propertyValues( deploymentPropertiesPropertySetName(), allowedMemoryBindingClassName())->first()
+
+context NamedElement def :allowedPeriodMax( p_unit : String ) :
+	Real = integerRangeMaxPropertyValues( deploymentPropertiesPropertySetName(), allowedPeriodName() )->first().convertedValue( p_unit )
+
+context NamedElement def :allowedPeriodMin( p_unit : String ) :
+	Real = integerRangeMinPropertyValues( deploymentPropertiesPropertySetName(), allowedPeriodName() )->first().convertedValue( p_unit )
+
+context NamedElement def :allowedProcessorBinding() :
+	PropertyExpression = propertyValues( deploymentPropertiesPropertySetName(), allowedProcessorBindingName())->first()
+
+context NamedElement def :allowedProcessorBindingClass() :
+	PropertyExpression = propertyValues( deploymentPropertiesPropertySetName(), allowedProcessorBindingClassName())->first()
+
+context NamedElement def :allowedSubprogramCall() :
+	PropertyExpression = propertyValues( deploymentPropertiesPropertySetName(), allowedSubprogramCallName())->first()
+
+context NamedElement def :allowedSubprogramCallBinding() :
+	PropertyExpression = propertyValues( deploymentPropertiesPropertySetName(), allowedSubprogramCallBindingName())->first()
+
+context NamedElement def :memoryProtocol() :
+	PropertyExpression = propertyValues( deploymentPropertiesPropertySetName(), memoryProtocolName() )->first()
+
+context NamedElement def :notCollocated() :
+	PropertyExpression = propertyValues( deploymentPropertiesPropertySetName(), notCollocatedName() )->first()
+
+context NamedElement def :schedulingProtocol() :
+	PropertyExpression = propertyValues( deploymentPropertiesPropertySetName(), schedulingProtocolName() )->first()
+
+context NamedElement def :threadLimit() :
+	PropertyExpression = propertyValues( deploymentPropertiesPropertySetName(), threadLimitName())->first()
+
+-------------------- Communication ------------------------
+context NamedElement def :actualLatency() :
+	Integer = integerValues( communicationPropertiesPropertySetName(), actualLatencyName() )->first()
+
+context NamedElement def :latency() :
+	PropertyExpression = propertyValues( communicationPropertiesPropertySetName(), latencyName() )->first()
+
+context NamedElement def :overflowHandlingProtocol() :
+	PropertyExpression = propertyValues( communicationPropertiesPropertySetName(), overflowHandlingProtocolName() )->first()
+
+context NamedElement def :queueProcessingProtocol() :
+	PropertyExpression = propertyValues( communicationPropertiesPropertySetName(), queueProcessingProtocolName())->first()
+
+context NamedElement def :queueSize() :
+	PropertyExpression = propertyValues( communicationPropertiesPropertySetName(), queueSizeName())->first()
+
+context NamedElement def :requiredConnection() :
+	PropertyExpression = propertyValues( communicationPropertiesPropertySetName(), requiredConnectionName())->first()
+
+context NamedElement def :transmissionTimesMax( p_unit : String ) :
+	OrderedSet( Real ) = integerRangeMaxPropertyValues( communicationPropertiesPropertySetName(), transmissionTimeName() )->collect( convertedValue( p_unit ) )->asOrderedSet()
+
+context NamedElement def :transmissionTimesMin( p_unit : String ) :
+	OrderedSet( Real ) = integerRangeMinPropertyValues( communicationPropertiesPropertySetName(), transmissionTimeName() )->collect( convertedValue( p_unit ) )->asOrderedSet()
+
+-------------------- Memory ------------------------
+context NamedElement def :allowedMessageSizeMax( p_unit : String ) :
+	Real = integerRangeMaxPropertyValues( memoryPropertiesPropertySetName(), allowedMessageSizeName())->first().convertedValue( p_unit ) 
+
+context NamedElement def :allowedMessageSizeMin( p_unit : String ) :
+	Real = integerRangeMinPropertyValues( memoryPropertiesPropertySetName(), allowedMessageSizeName())->first().convertedValue( p_unit )
+
+context NamedElement def :assignTime( p_unit : String ) :
+	Real = integerPropertyValues( memoryPropertiesPropertySetName(), assignTimeName() )->first().convertedValue( p_unit )
+
+context NamedElement def :baseAddress() :
+	Integer = integerValues( memoryPropertiesPropertySetName(), baseAddressName())->first()
+
+context NamedElement def :readTimeMax( p_unit : String ) :
+	Real = integerRangeMaxPropertyValues( memoryPropertiesPropertySetName(), readTimeName() )->first().convertedValue( p_unit )
+
+context NamedElement def :readTimeMin( p_unit : String ) :
+	Real = integerRangeMinPropertyValues( memoryPropertiesPropertySetName(), readTimeName() )->first().convertedValue( p_unit )
+
+context NamedElement def :sourceCodeSize( p_unit : String ) :
+	Real = integerPropertyValues( memoryPropertiesPropertySetName(), sourceCodeSizeName())->first().convertedValue( p_unit )
+
+context NamedElement def :sourceDataSize( p_unit : String ) :
+	Real = integerPropertyValues( memoryPropertiesPropertySetName(), sourceDataSizeName())->first().convertedValue( p_unit )
+
+context NamedElement def :sourceHeapSize( p_unit : String ) :
+	Real = integerPropertyValues( memoryPropertiesPropertySetName(), sourceHeapSizeName())->first().convertedValue( p_unit )
+
+context NamedElement def :sourceStackSize( p_unit : String ) :
+	Real = integerPropertyValues( memoryPropertiesPropertySetName(), sourceStackSizeName())->first().convertedValue( p_unit )
+
+context NamedElement def :wordSize( p_unit : String ) :
+	Real = integerPropertyValues( memoryPropertiesPropertySetName(), wordSizeName())->first().convertedValue( p_unit )
+
+context NamedElement def :wordSpace() :
+	Integer = integerValues( memoryPropertiesPropertySetName(), wordSpaceName())->first()
+
+context NamedElement def :writeTimesMax( p_unit : String ) :
+	OrderedSet( Real ) = integerRangeMaxPropertyValues( memoryPropertiesPropertySetName(), writeTimeName() )->collect( convertedValue( p_unit ) )->asOrderedSet()
+
+context NamedElement def :writeTimesMin( p_unit : String ) :
+	OrderedSet( Real ) = integerRangeMinPropertyValues( memoryPropertiesPropertySetName(), writeTimeName() )->collect( convertedValue( p_unit ) )->asOrderedSet()
+
+-------------------- SEI ------------------------
+context NamedElement def : mipsCapacity() :
+	Real = realValues( seiPropertySetName(), mipsCapacityName() )->first()
+
+context NamedElement def : mipsBudget() :
+	Real = realValues(seiPropertySetName(),mipsBudgetName())->first()
+
+context NamedElement def :ramCapacity() :
+	Real = realValues(seiPropertySetName(),ramCapacityName())->first()
+
+context NamedElement def :ramBudget() :
+	Real = realValues(seiPropertySetName(),ramBudgetName())->first()
+
+context NamedElement def: romCapacity() :
+	Real = realValues(seiPropertySetName(),romCapacityName())->first()
+
+context NamedElement def: romBudget() :
+	Real = realValues(seiPropertySetName(),romBudgetName())->first()
+
+context NamedElement def :powerCapacity() :
+	Real = realValues(seiPropertySetName(),powerCapacityName())->first()
+
+context NamedElement def :powerBudget() :
+	Real = realValues(seiPropertySetName(),powerBudgetName())->first()
+
+context NamedElement def :powerSupply() :
+	Real = realValues(seiPropertySetName(),powerSupplyName())->first()
+
+context NamedElement def :bandWidthCapacity() :
+	Real = realValues(seiPropertySetName(),bandWidthCapacityName())->first()
+
+context NamedElement def :ramActual() :
+	Real = realValues(seiPropertySetName(),ramActualName())->first()
+
+context NamedElement def :romActual() :
+	Real = realValues(seiPropertySetName(),romActualName())->first()
+
+context NamedElement def :streamMissRate() : 
+	Real = realValues(seiPropertySetName(),streamMissRateName())->first()
+
+context NamedElement def : netWeight() :
+	Real = realValues(seiPropertySetName(),netWeightName())->first()
+
+context NamedElement def :grossWeight() : 
+	Real = realValues(seiPropertySetName(),grossWeightName())->first()
+
+context NamedElement def :weightLimit() : 
+	Real = realValues(seiPropertySetName(),weightLimitName())->first()
+
+context NamedElement def : securityLevel() :
+	Integer = integerValues(seiPropertySetName(),securityLevelName())->first()
+
+context NamedElement def : safetyCriticality() :
+	Integer = integerValues(seiPropertySetName(),safetyCriticalityName())->first()
+
+context NamedElement def : priority() :
+	Integer = integerValues(seiPropertySetName(), priorityName())->first()
+
+context NamedElement def: cycleTime( p_unit : String ) :
+	Real = integerPropertyValues( seiPropertySetName(), cycleTimeName() )->first().convertedValue( p_unit )
+
+context NamedElement def: speedScalingFactor() :
+	Real = realValues(seiPropertySetName(), speedScalingFactorName())->first()
+
+context NamedElement def: cyclesPerInstruction() :
+	Real = realValues(seiPropertySetName(),cyclesPerInstructionName())->first()
+
+context NamedElement def : dataRepresentation() :
+	PropertyExpression = propertyValues(seiPropertySetName(), dataRepresentationName() )->first()
+
+context NamedElement def : protocolQoS() :
+	PropertyExpression = propertyValues(seiPropertySetName(), protocolQoSName() )->first()
+
+context instance::ComponentInstance def : isBoundTo( p_component : instance::ComponentInstance ) :
+	Boolean = actualProcessorBinding() = p_component
+
+context instance::ComponentInstance def : allThreadsBoundToProcessor() :
+	 Set(instance::ComponentInstance) = instance::ComponentInstance.allInstances()->select(isThread())->select( isBoundTo(self ) )
+
+context instance::ComponentInstance def : allPeriodsOfThreadsBoundToProcessor( p_unit : String ) :
+	OrderedSet( Real ) = allThreadsBoundToProcessor()->collect( period( p_unit ) )->asOrderedSet()
+
+-- Returns the sum of all maximum compute exec time of threads bound to self.
+context instance::ComponentInstance def : sumExecTimeMaxOfThreadsBoundToProcessor( p_unit : String ) :
+	Real = allThreadsBoundToProcessor()->collect( computeExecutionTimeMax(  msUnit() ) )->sum()
+
+-- Ensures that the maximum of bound threads period is smaller than the sum of the max compute exec time of bound threads.
+context instance::ComponentInstance def : threadsPeriodicityNotViolated() :
+	Boolean = allPeriodsOfThreadsBoundToProcessor( msUnit() )->select( v : Real |( v < sumExecTimeMaxOfThreadsBoundToProcessor(  msUnit() ) ) )->isEmpty()
+
+endpackage

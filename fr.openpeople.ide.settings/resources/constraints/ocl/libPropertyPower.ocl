@@ -1,0 +1,156 @@
+-- *****************************************************************************************
+-- ** Copyright (c) 2011 Lab-STICC, Université de Bretagne-Sud.                           **
+-- ** All rights reserved. This program and the accompanying materials                    **
+-- ** are made available under the terms of the CeCILL-B FREE SOFTWARE LICENSE AGREEMENT  **
+-- ** which accompanies this distribution, and is available at                            **
+-- ** http://www.cecill.info/licences/Licence_CeCILL-B_V1-en.html                         **
+-- **                                                                                     **
+-- ** Contributors:                                                                       **
+-- **   Dominique BLOUIN (Lab-STICC, UBS)                                                 **
+-- *****************************************************************************************
+
+package aadl2
+
+context NamedElement def : POWER_PROPERTY_SET_NAME : 
+	String = 'Power_Properties'
+
+context NamedElement def : POWER_TOTAL_PROP_NAME : 
+	String = 'Power_Tot'
+
+context NamedElement def : POWER_STAT_PROP_NAME : 
+	String = 'Power_Static'
+
+context NamedElement def : POWER_DYN_PROP_NAME : 
+	String = 'Power_Dynamic'
+
+context NamedElement def : ENERGY_PROP_NAME : 
+	String = 'Energy_Range'
+
+-- Units --
+-- Power
+context NamedElement def : PW_UNIT :
+	String = 'pW'
+
+context NamedElement def : NW_UNIT :
+	String = 'nW'
+
+context NamedElement def : UW_UNIT :
+	String = 'uW'
+
+context NamedElement def : MW_UNIT :
+	String = 'mW'
+
+context NamedElement def : W_UNIT :
+	String = 'W'
+
+context NamedElement def : KW_UNIT :
+	String = 'KW'
+
+-- Energy
+context NamedElement def : PJ_UNIT :
+	String = 'pJ'
+
+context NamedElement def : NJ_UNIT :
+	String = 'nJ'
+
+context NamedElement def : UJ_UNIT :
+	String = 'uJ'
+
+context NamedElement def : MJ_UNIT :
+	String = 'mJ'
+
+context NamedElement def : J_UNIT :
+	String = 'J'
+
+context NamedElement def : KJ_UNIT :
+	String = 'KJ'
+
+context NamedElement def : energyMin( p_unit : String ) :
+	Real = 
+		let 
+			value : RealLiteral = firstRealRangeMinPropertyValue( POWER_PROPERTY_SET_NAME, ENERGY_PROP_NAME )
+		in 
+			if value.oclIsUndefined() then
+				null
+			else 
+				value.convertedValue( p_unit )
+			endif
+
+context NamedElement def : energyMax( p_unit : String  ) :
+	Real = 
+		let 
+			value : RealLiteral = firstRealRangeMaxPropertyValue( POWER_PROPERTY_SET_NAME, ENERGY_PROP_NAME )
+		in 
+			if value.oclIsUndefined() then
+				null
+			else 
+				value.convertedValue( p_unit )
+			endif
+
+context NamedElement def : powerStatMin( p_unit : String ) :
+	Real = 
+		let 
+			value : RealLiteral = firstRealRangeMinPropertyValue( POWER_PROPERTY_SET_NAME, POWER_STAT_PROP_NAME )
+		in 
+			if value.oclIsUndefined() then
+				null
+			else 
+				value.convertedValue( p_unit )
+			endif
+
+context NamedElement def : powerStatMax( p_unit : String  ) :
+	Real = 
+		let 
+			value : RealLiteral = firstRealRangeMaxPropertyValue( POWER_PROPERTY_SET_NAME, POWER_STAT_PROP_NAME )
+		in 
+			if value.oclIsUndefined() then
+				null
+			else 
+				value.convertedValue( p_unit )
+			endif
+
+context NamedElement def : powerDynMin( p_unit : String ) :
+	Real = 
+		let 
+			value : RealLiteral = firstRealRangeMinPropertyValue( POWER_PROPERTY_SET_NAME, POWER_DYN_PROP_NAME )
+		in 
+			if value.oclIsUndefined() then
+				null
+			else 
+				value.convertedValue( p_unit )
+			endif
+
+context NamedElement def : powerDynMax( p_unit : String  ) :
+	Real = 
+		let 
+			value : RealLiteral = firstRealRangeMaxPropertyValue( POWER_PROPERTY_SET_NAME, POWER_DYN_PROP_NAME )
+		in 
+			if value.oclIsUndefined() then
+				null
+			else 
+				value.convertedValue( p_unit )
+			endif
+
+context NamedElement def : powerTotalMin( p_unit : String ) :
+	Real = 
+		let 
+			value : RealLiteral = firstRealRangeMinPropertyValue( POWER_PROPERTY_SET_NAME, POWER_TOTAL_PROP_NAME )
+		in 
+			if value.oclIsUndefined() then
+				null
+			else 
+				value.convertedValue( p_unit )
+			endif
+
+context NamedElement def : powerTotalMax( p_unit : String ) :
+	Real = 
+		let 
+			value : RealLiteral = firstRealRangeMaxPropertyValue( POWER_PROPERTY_SET_NAME, POWER_TOTAL_PROP_NAME )
+		in 
+			if value.oclIsUndefined() then
+				null
+			else 
+				value.convertedValue( p_unit )
+			endif
+
+endpackage

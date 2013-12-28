@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="ASCII"?>
+<cst:ConstraintLanguagesSpecification xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:cst="http:///fr/labsticc/framework/constraints" id="20903345" name="Default">
+  <languages xsi:type="cst:NaturalConstraintLanguage" id="fr.labsticc.framework.constraints.core.natural" name="Natural"/>
+  <languages xsi:type="cst:FormalConstraintLanguage" id="fr.labsticc.framework.constraints.ocl" name="OCL" description="">
+    <interpreter id="ocl_int_service" name="OCL Interpreter Service" serviceClass="fr.labsticc.framework.constraints.ocl.service.OCLInterpretationAS" providerId="fr.labsticc.framework.constraints.ocl.service"/>
+    <persister id="85f3b6c7-b640-4677-85ef-a84e93ee47c2" name="OCL Persistence Service" serviceClass="fr.labsticc.framework.constraints.ocl.service.OCLResourcePersistenceAS" providerId="fr.labsticc.framework.constraints.ocl.service"/>
+    <viewer id="1102107e-e892-4708-a878-2c11b5e47c27" name="OCL Viewer Configuration" serviceClass="fr.labsticc.framework.constraints.ocl.view.OCLViewerConfiguration" providerId="fr.labsticc.framework.constraints.ocl.view"/>
+  </languages>
+  <languages xsi:type="cst:FormalConstraintLanguage" id="fr.labsticc.framework.constraints.lute" name="Lute">
+    <interpreter id="lute_int_service" name="Lute Interpreter Service" serviceClass="fr.labsticc.framework.constraints.lute.service.LuteInterpretationAS" providerId="fr.labsticc.framework.constraints.lute.service"/>
+    <viewer id="4c51dce4-827a-4ebb-86e1-41aea3848d83" name="Lute Viewer Configuration" serviceClass="fr.labsticc.framework.constraints.lute.view.LuteViewerConfiguration" providerId="fr.labsticc.framework.constraints.lute.view"/>
+  </languages>
+  <languages xsi:type="cst:FormalConstraintLanguage" id="fr.labsticc.framework.constraints.bless" name="BLESS" description="BLESS assertions prover.">
+    <interpreter id="BLESS_int_service" name="BLESS Interpreter Service" serviceClass="fr.labsticc.framework.constraints.bless.service.BlessInterpretationAS" providerId="fr.labsticc.framework.constraints.bless.service"/>
+  </languages>
+</cst:ConstraintLanguagesSpecification>

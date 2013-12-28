@@ -1,0 +1,58 @@
+MainModel : http:///AADL/property
+
+-- *****************************************************************************************
+-- ** Copyright (c) 2009 Lab-STICC, Université de Bretagne-Sud.                           **
+-- ** All rights reserved. This program and the accompanying materials                    **
+-- ** are made available under the terms of the CeCILL-B FREE SOFTWARE LICENSE AGREEMENT  **
+-- ** which accompanies this distribution, and is available at                            **
+-- ** http://www.cecill.info/licences/Licence_CeCILL-B_V1-en.html                         **
+-- **                                                                                     **
+-- ** Contributors:                                                                       **
+-- **   Dominique BLOUIN (Lab-STICC, UBS)                                                    **
+-- *****************************************************************************************
+
+package aadl2
+
+context NamedElement def : FPGA_PROPERTIES_PROPERTY_SET_NAME : 
+	String = 'FPGA_Properties'
+
+context NamedElement def : FPGA_CLE_AVAILABLE_PROP_NAME : 
+	String = 'CLE_Available'
+
+context NamedElement def : FPGA_CLE_OCCUPIED_PROP_NAME : 
+	String = 'CLE_Occupied'
+
+context NamedElement def : FPGA_CLE_REQUIRED_PROP_NAME : 
+	String = 'CLE_Required'
+
+context NamedElement def : CLE_UNIT :
+	String = 'cle'
+
+context NamedElement def : KCLE_UNIT :
+	String = 'kcle'
+
+context NamedElement def : fpgaSurfaceRequiredCle() :
+	Real = 
+		if oclIsKindOf( ThreadClassifier ) or oclIsKindOf( ThreadSubcomponent ) or
+			( oclIsKindOf( instance::ComponentInstance ) and oclAsType( instance::ComponentInstance ).isThread() ) then
+			integerPropertyValues( FPGA_PROPERTIES_PROPERTY_SET_NAME, FPGA_CLE_REQUIRED_PROP_NAME )->first().convertedValue( CLE_UNIT )
+		else
+			null
+		endif
+
+context SystemImplementation def : fpgaSurfaceAvailableCle() :
+	Real = 
+		integerPropertyValues( FPGA_PROPERTIES_PROPERTY_SET_NAME, FPGA_CLE_AVAILABLE_PROP_NAME )->first().convertedValue( CLE_UNIT )
+
+context instance::ComponentInstance def : fpgaSurfaceAvailableCle() :
+	Real = 
+		integerPropertyValues( FPGA_PROPERTIES_PROPERTY_SET_NAME, FPGA_CLE_AVAILABLE_PROP_NAME )->first().convertedValue( CLE_UNIT )
+
+context instance::ComponentInstance def : fpgaSurfaceOccuppiedCle() :
+	Real = rootParent().oclAsType( instance::ComponentInstance ).
+		allContainedComponents( ComponentCategory::thread )->
+			select( isBoundTo( self ) )->
+				collect( fpgaSurfaceRequiredCle() )->sum()
+
+
+endpackage

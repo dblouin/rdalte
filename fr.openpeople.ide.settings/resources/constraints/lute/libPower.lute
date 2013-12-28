@@ -1,0 +1,51 @@
+-- *****************************************************************************************
+-- ** Copyright (c) 2012 Lab-STICC, Université de Bretagne-Sud.                           **
+-- ** All rights reserved. This program and the accompanying materials                    **
+-- ** are made available under the terms of the CeCILL-B FREE SOFTWARE LICENSE AGREEMENT  **
+-- ** which accompanies this distribution, and is available at                            **
+-- ** http://www.cecill.info/licences/Licence_CeCILL-B_V1-en.html                         **
+-- **                                                                                     **
+-- ** Contributors:                                                                       **
+-- **   Dominique BLOUIN (Lab-STICC, UBS)                                                 **
+-- *****************************************************************************************
+
+-- Constants
+
+-- Properties
+POWER_PROPERTY_SET_NAME := "Power_Properties::";
+POWER_TOTAL_PROP_NAME := Concat( POWER_PROPERTY_SET_NAME, "Power_Tot" );
+POWER_STAT_PROP_NAME := Concat( POWER_PROPERTY_SET_NAME, "Power_Static" );
+POWER_DYN_PROP_NAME := Concat( POWER_PROPERTY_SET_NAME, "Power_Dynamic" );
+ENERGY_PROP_NAME := Concat( POWER_PROPERTY_SET_NAME, "Energy_Range" );
+
+-- Units --
+
+-- Power
+PW_UNIT := "pW";
+NW_UNIT := "nW";
+UW_UNIT := "uW";
+MW_UNIT := "mW";
+W_UNIT := "W";
+KW_UNIT := "KW";
+
+-- Energy
+PJ_UNIT := "pJ";
+NJ_UNIT := "nJ";
+UJ_UNIT := "uJ";
+MJ_UNIT := "mJ";
+J_UNIT := "J";
+KJ_UNIT := "KJ";
+
+-- Property Helpers
+Energy_Min( comp, unit ) := Lower( Property( comp, ENERGY_PROP_NAME, unit ) );
+Energy_Max( comp, unit ) := Upper( Property( comp, ENERGY_PROP_NAME, unit ) );
+
+Power_Stat_Min( comp, unit ) := Lower( Property( comp, POWER_STAT_PROP_NAME, unit ) );
+Power_Stat_Max( comp, unit ) := Upper( Property( comp, POWER_STAT_PROP_NAME, unit ) );
+
+Power_Dyn_Min( comp, unit ) := Lower( Property( comp, POWER_DYN_PROP_NAME, unit ) );
+Power_Dyn_Max( comp, unit ) := Upper( Property( comp, POWER_DYN_PROP_NAME, unit ) );
+
+Power_Tot_Min( comp, unit ) := Lower( Property( comp, POWER_TOTAL_PROP_NAME, unit ) );
+Power_Tot_Max( comp, unit ) := Upper( Property( comp, POWER_TOTAL_PROP_NAME, unit ) );
+			
