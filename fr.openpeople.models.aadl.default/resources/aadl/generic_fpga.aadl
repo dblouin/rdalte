@@ -1,0 +1,79 @@
+PACKAGE generic_fpga
+PUBLIC
+WITH generic_hw, Power_Properties, Basic_OP_Properties;
+
+  	DATA FPGA_Bitstream
+  	END FPGA_Bitstream;
+  
+  	DATA IMPLEMENTATION FPGA_Bitstream.impl
+  	END FPGA_Bitstream.impl;
+  
+  	SYSTEM Generic_FPGA EXTENDS generic_hw::HW_Component
+    	FEATURES
+      		icap_port: IN DATA PORT FPGA_Bitstream.impl;
+  	END Generic_FPGA;
+  
+  	SYSTEM FPGA_Conf_Space EXTENDS generic_hw::HW_Component
+    	FEATURES
+      		icap_port: IN DATA PORT FPGA_Bitstream.impl;
+      		bus_access: PROVIDES BUS ACCESS FPGA_Bus.impl;
+	PROPERTIES
+		Power_Properties::Power_Static => 0.0 mW .. 0.0 mW;
+  	END FPGA_Conf_Space;
+  
+  	SYSTEM IMPLEMENTATION FPGA_Conf_Space.impl EXTENDS generic_hw::HW_Component.impl
+  	END FPGA_Conf_Space.impl;
+  
+  	ABSTRACT FPGA_Component EXTENDS generic_hw::HW_Component
+	PROPERTIES
+		Basic_OP_Properties::Compo_Cost => 0.0 EUR;
+  	END FPGA_Component;
+  
+  	ABSTRACT IMPLEMENTATION FPGA_Component.impl  EXTENDS generic_hw::HW_Component.impl
+  	END FPGA_Component.impl;
+
+  	MEMORY FPGA_Memory EXTENDS FPGA_Component
+    	FEATURES
+      		bus_access: REQUIRES BUS ACCESS FPGA_Bus.impl;
+  	END FPGA_Memory;
+  
+  	MEMORY IMPLEMENTATION FPGA_Memory.impl EXTENDS FPGA_Component.impl
+  	END FPGA_Memory.impl;
+  
+  	BUS FPGA_Bus EXTENDS FPGA_Component
+  	END FPGA_Bus;
+  
+  	BUS IMPLEMENTATION FPGA_Bus.impl EXTENDS FPGA_Component.impl
+  	END FPGA_Bus.impl;
+  
+  	PROCESSOR IP_Core EXTENDS FPGA_Component
+    	FEATURES
+      		bus_access: REQUIRES BUS ACCESS FPGA_Bus.impl;
+  	END IP_Core;
+  
+  	PROCESSOR IMPLEMENTATION IP_Core.impl EXTENDS FPGA_Component.impl
+  	END IP_Core.impl;
+  
+  	PROCESSOR FPGA_Processor EXTENDS FPGA_Component
+    	FEATURES
+      		bus_access: REQUIRES BUS ACCESS FPGA_Bus.impl;
+  	END FPGA_Processor;
+  
+  	PROCESSOR IMPLEMENTATION FPGA_Processor.impl EXTENDS FPGA_Component.impl
+  	END FPGA_Processor.impl;
+  
+  	DEVICE FPGA_Device EXTENDS FPGA_Component
+    	FEATURES
+      		bus_access: REQUIRES BUS ACCESS FPGA_Bus.impl;
+  	END FPGA_Device;
+  
+  	DEVICE IMPLEMENTATION FPGA_Device.impl EXTENDS FPGA_Component.impl
+  	END FPGA_Device.impl;
+  
+  	SYSTEM IMPLEMENTATION Generic_FPGA.impl EXTENDS generic_hw::HW_Component.impl
+    	SUBCOMPONENTS
+      		conf_space: SYSTEM FPGA_Conf_Space.impl;
+  		CONNECTIONS
+			confSpace_icap: PORT icap_port -> conf_space.icap_port;
+  	END Generic_FPGA.impl;
+END generic_fpga;

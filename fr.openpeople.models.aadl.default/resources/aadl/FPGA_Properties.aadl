@@ -1,0 +1,33 @@
+PROPERTY SET FPGA_Properties IS
+	WITH Basic_OP_Properties;
+
+  	-- Configurable Logical Elements
+  	CLE_Available: FPGA_Properties::CLE_Number_Type APPLIES TO (SYSTEM);
+  	CLE_Occupied: FPGA_Properties::CLE_Number_Type APPLIES TO (PROCESSOR, MEMORY, DEVICE);
+  	CLE_Required: FPGA_Properties::CLE_Number_Type APPLIES TO (THREAD);
+
+  	-- BRAM Memory Elements
+  	MBE_Available: FPGA_Properties::MBE_Number_Type APPLIES TO (SYSTEM);
+  	MBE_Occupied: FPGA_Properties::MBE_Number_Type APPLIES TO (PROCESSOR, MEMORY, DEVICE);
+  	MBE_Required: FPGA_Properties::MBE_Number_Type APPLIES TO (THREAD);
+
+  	-- DSP Block Elements
+  	DBE_Available: FPGA_Properties::DBE_Number_Type APPLIES TO (SYSTEM);
+  	DBE_Occupied: FPGA_Properties::DBE_Number_Type APPLIES TO (PROCESSOR, DEVICE);
+  	DBE_Required: FPGA_Properties::DBE_Number_Type APPLIES TO (THREAD);
+
+	CLE_Usage_Rate: Basic_OP_Properties::Rate_Type APPLIES TO (SYSTEM);
+	MBE_Usage_Rate: Basic_OP_Properties::Rate_Type APPLIES TO (SYSTEM);
+	DBE_Usage_Rate: Basic_OP_Properties::Rate_Type APPLIES TO (SYSTEM);
+
+  	-- FPGA Toggle Rate
+  	Avg_Toggle_Rate: Basic_OP_Properties::Rate_Type APPLIES TO (SYSTEM, PROCESSOR, MEMORY, DEVICE);
+  
+  	-- Property Types and Units
+  	CLE_Number_Type: TYPE AADLINTEGER UNITS FPGA_Properties::CLE_Number_Units;
+  	CLE_Number_Units: TYPE UNITS (cle, kcle => cle * 1000);
+  	MBE_Number_Type: TYPE AADLINTEGER UNITS FPGA_Properties::MBE_Number_Units;
+  	MBE_Number_Units: TYPE UNITS (mbe, kmbe => mbe * 1000);
+  	DBE_Number_Type: TYPE AADLINTEGER UNITS FPGA_Properties::DBE_Number_Units;
+  	DBE_Number_Units: TYPE UNITS (dbe, kdbe => dbe * 1000);
+END FPGA_Properties;

@@ -1,0 +1,55 @@
+property set Power_Properties is
+  
+  -- Power Properties
+
+  -- Static Power
+  Power_Static: Power_Properties::Power_Consumption_Range_Type applies to (processor, memory, system, bus, device);
+  Power_Static_Subcompo: Power_Properties::Power_Consumption_Range_Type applies to (processor, memory, system, bus, device);
+  Power_Static_Tot: Power_Properties::Power_Consumption_Range_Type applies to (processor, memory, system, bus, device);
+
+  -- Dynamic Power
+  Power_Dynamic: Power_Properties::Power_Consumption_Range_Type applies to (processor, memory, system, bus, device, process, thread, subprogram, data);
+  Power_Dynamic_Subcompo: Power_Properties::Power_Consumption_Range_Type applies to (processor, memory, system, bus, device, process, thread, subprogram, data);
+  Power_Dynamic_Event: Power_Properties::Power_Consumption_Range_Type applies to (processor, memory, system, bus, device, process, thread, subprogram, data);
+  Power_Dynamic_Tot: Power_Properties::Power_Consumption_Range_Type applies to (processor, memory, system, bus, device, process, thread, subprogram, data);
+  
+  -- Total Average Power Including the Static and Dynamic Parts. Typically computed by summing the energies over a given composition period (see property in Basic_OP_Properties).
+  Power: Power_Properties::Power_Consumption_Range_Type applies to (processor, memory, system, bus, device, process, thread, subprogram, data);
+  Power_Subcompo: Power_Properties::Power_Consumption_Range_Type applies to (processor, memory, system, bus, device, process, thread, subprogram, data);
+  Power_Tot: Power_Properties::Power_Consumption_Range_Type applies to (processor, memory, system, bus, device, process, thread, subprogram, data);
+  
+  Power_Peak: Power_Properties::Power_Consumption_Range_Type applies to (processor, memory, system, bus, device, process, thread, subprogram, data);
+  Power_Max_Supported: Power_Properties::Power_Consumption_Type applies to (processor, memory, system, bus, device);
+  
+  -- Energy Properties
+
+  -- Static Energy
+  Energy_Static: Power_Properties::Energy_Consumption_Range_Type applies to (processor, memory, system, bus, device);
+  Energy_Static_Subcompo: Power_Properties::Energy_Consumption_Range_Type applies to (processor, memory, system, bus, device);
+  Energy_Static_Tot: Power_Properties::Energy_Consumption_Range_Type applies to (processor, memory, system, bus, device);
+
+  -- Dynamic Energy
+  Energy_Dynamic: Power_Properties::Energy_Consumption_Range_Type applies to (processor, memory, system, bus, device, process, thread, subprogram, data);
+  Energy_Dynamic_Event: Power_Properties::Energy_Consumption_Range_Type applies to (processor, memory, system, bus, device, process, thread, subprogram, data);
+  Energy_Dynamic_Subcompo: Power_Properties::Energy_Consumption_Range_Type applies to (processor, memory, system, bus, device, process, thread, subprogram, data);
+  Energy_Dynamic_Tot: Power_Properties::Energy_Consumption_Range_Type applies to (processor, memory, system, bus, device, process, thread, subprogram, data);
+
+  -- Total Energy Computed from the Sum of the Static and Dynamic Parts.
+  Energy: Power_Properties::Energy_Consumption_Range_Type applies to (processor, memory, system, bus, device, process, thread, subprogram, data);
+  Energy_Subcompo: Power_Properties::Energy_Consumption_Range_Type applies to (processor, memory, system, bus, device, process, thread, subprogram, data);
+  Energy_Tot: Power_Properties::Energy_Consumption_Range_Type applies to (processor, memory, system, bus, device, process, thread, subprogram, data);
+  Energy_Per_Byte_Range: Power_Properties::Energy_Consumption_Per_Byte_Range_Type applies to (device, memory, data);
+
+  -- Power Property Types
+  Power_Consumption_Range_Type: type range of Power_Properties::Power_Consumption_Type;
+  Power_Consumption_Type: type aadlreal  units Power_Properties::Power_Units;
+  Power_Units: type units (pW, nW => pW * 1000, uW => nW * 1000, mW => uW * 1000, W => mW * 1000, KW => W * 1000);
+  Energy_Consumption_Range_Type: type range of Power_Properties::Energy_Consumption_Type;
+  
+  -- Energy Property Types
+  Energy_Consumption_Type: type aadlreal  units Power_Properties::Energy_Units;
+  Energy_Units: type units (pJ, nJ => pJ * 1000, uJ => nJ * 1000, mJ => uJ * 1000, J => mJ * 1000, KJ => J * 1000);
+  Energy_Consumption_Per_Byte_Range_Type: type range of Power_Properties::Energy_Consumption_Per_Byte_Type;
+  Energy_Consumption_Per_Byte_Type: type aadlreal  units Power_Properties::Energy_Per_Byte_Units;
+  Energy_Per_Byte_Units: type units (pJ_per_Byte, nJ_per_Byte => pJ_per_Byte * 1000, uJ_per_Byte => nJ_per_Byte * 1000, mJ_per_Byte => uJ_per_Byte * 1000, J_per_Byte => mJ_per_Byte * 1000, KJ_per_Byte => J_per_Byte * 1000);
+end Power_Properties;

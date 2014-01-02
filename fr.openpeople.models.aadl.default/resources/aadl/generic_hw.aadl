@@ -1,0 +1,21 @@
+PACKAGE generic_hw
+PUBLIC
+
+	ABSTRACT HW_Component
+	END HW_Component;
+
+	ABSTRACT IMPLEMENTATION HW_Component.impl
+	END HW_Component.impl;
+
+	BUS Generic_Bus EXTENDS HW_Component
+	END Generic_Bus;
+
+	BUS IMPLEMENTATION Generic_Bus.impl EXTENDS HW_Component.impl
+	END Generic_Bus.impl;
+
+	MEMORY Generic_Memory EXTENDS HW_Component
+	END Generic_Memory;
+
+	MEMORY IMPLEMENTATION Generic_Memory.impl EXTENDS HW_Component.impl
+	END Generic_Memory.impl;
+END generic_hw;

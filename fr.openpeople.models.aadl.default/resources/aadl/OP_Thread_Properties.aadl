@@ -1,0 +1,6 @@
+property set OP_Thread_Properties is
+with Basic_OP_Properties;
+
+  Data_Cache_Miss_Rate: inherit Basic_OP_Properties::Rate_Type  applies to (process, thread);
+  Inst_Cache_Miss_Rate: inherit Basic_OP_Properties::Rate_Type  applies to (process, thread);
+end OP_Thread_Properties;

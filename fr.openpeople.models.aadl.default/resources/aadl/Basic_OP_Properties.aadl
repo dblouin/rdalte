@@ -1,0 +1,45 @@
+property set Basic_OP_Properties is
+  -- Data Properties
+  Data_Size: Basic_OP_Properties::Data_Size_Type applies to (data);
+  -- Frequency Properties
+  Frequency: inherit Basic_OP_Properties::Frequency_Type applies to (processor, bus, system, memory, device);
+  -- Hardware Platform Properties
+  Hardware_Technology: inherit Basic_OP_Properties::Hardware_Technologies applies to (system, processor, device, memory, bus);
+  -- Time Properties
+  Time_Dynamic: Time_Range applies to (processor, memory, bus, device, process, thread, subprogram, data, system);
+  Time_Dynamic_Subcompo: Time_Range applies to (processor, memory, bus, device, process, thread, subprogram, data, system);
+  Time_Dynamic_Tot: Time_Range applies to (processor, memory, bus, device, process, thread, subprogram, data, system);
+
+  Time_Per_Byte_Range: Basic_OP_Properties::Time_Per_Byte_Range_Type applies to (memory, data, device);
+  Composition_Period: Time applies to (system, processor, memory, bus, device, process, thread, thread group, data);
+  Data_Size_Type: type aadlreal 0.0 Bytes .. Max_Memory_Size units Size_Units;
+  -- Frequency Property Types 
+  Frequency_Type: type aadlreal units Basic_OP_Properties::Frequency_Units;
+  Frequency_Units: type units (Hz, KHz => Hz * 1000, MHz => KHz * 1000, GHz => MHz * 1000);
+  -- Technology Property Types 
+  Hardware_Technologies: type enumeration (ASIC_130NM, ASIC_90NM, ASIC_65NM);
+  -- Length Property Types
+  Length_Type: type aadlreal units Basic_OP_Properties::Length_Units;
+  Length_Units: type units (pm, nm => pm * 1000, um => nm * 1000, mm => um * 1000, m => mm * 1000, km => m * 1000);
+  -- Surface Property Types
+  Surface_Type: type aadlreal  units Basic_OP_Properties::Surface_Units;
+  Surface_Units: type units (pm2, nm2 => pm2 * 1000000, um2 => nm2 * 1000000, mm2 => um2 * 1000000, m2 => mm2 * 1000000, km2 => m2 * 1000000);
+  -- Time Property Types
+  Time_Per_Byte_Type: type aadlreal  units Basic_OP_Properties::Time_Per_Byte_Units;
+  Time_Per_Byte_Units: type units (ps_per_Byte, ns_per_Byte => ps_per_Byte * 1000, us_per_Byte => ns_per_Byte * 1000, ms_per_Byte => us_per_Byte * 1000, s_per_Byte => ms_per_Byte * 1000, Ks_per_Byte => s_per_Byte * 1000);
+  Time_Per_Byte_Range_Type: type range of Basic_OP_Properties::Time_Per_Byte_Type;
+  -- Rate Property Types
+  Rate_Type: type aadlreal units Basic_OP_Properties::Rate_Units;
+  Rate_Units: type units (percent, abs => percent * 100);
+  
+  -- Cost Properties
+  Compo_Cost: Basic_OP_Properties::Cost_Type => 0.0 EUR APPLIES TO (PROCESSOR, MEMORY, SYSTEM, BUS, DEVICE);
+  Compo_Cost_Subcompo: Basic_OP_Properties::Cost_Type APPLIES TO (PROCESSOR, MEMORY, SYSTEM, BUS, DEVICE);
+  Compo_Cost_Tot: Basic_OP_Properties::Cost_Type APPLIES TO (PROCESSOR, MEMORY, SYSTEM, BUS, DEVICE);
+  Cost_Type: TYPE AADLREAL UNITS Basic_OP_Properties::Currency;
+  Currency: TYPE UNITS (EUR, USD => EUR * 0.7582);
+
+  -- Bandwith Analysis
+  Max_Used_BandWidth: aadlreal units Data_Volume_Units applies to (bus, system);
+
+end Basic_OP_Properties;

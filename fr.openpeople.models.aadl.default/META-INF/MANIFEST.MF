@@ -1,0 +1,9 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Open-PEOPLE Default AADL Elements
+Bundle-SymbolicName: fr.openpeople.models.aadl.default;singleton:=true
+Bundle-Version: 0.2.1.qualifier
+Bundle-Vendor: Lab-STICC UBS
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Require-Bundle: org.osate.pluginsupport
+Bundle-ActivationPolicy: lazy
