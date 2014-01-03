@@ -59,7 +59,10 @@ public class Constraints11RequirementCompatibilityUpdater implements ICompatibil
 				final FormalLanguageExpression expression = (FormalLanguageExpression) object;
 				final FormalConstraintLanguage language = (FormalConstraintLanguage) expression.getLanguage();
 				final String languageId;
-				
+				if (language == null)
+				{
+					continue;
+				}
 				if ( language.eIsProxy() ) {
 					final URI unresUri = EcoreUtil.getURI( language );
 					languageId = unresUri.fragment();
