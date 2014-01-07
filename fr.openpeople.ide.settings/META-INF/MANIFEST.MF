@@ -8,13 +8,13 @@ Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Require-Bundle: fr.labsticc.framework.constraints.ide;bundle-version="1.0.0",
  fr.labsticc.framework.settings.ide,
  fr.labsticc.framework.emf.view,
- fr.labsticc.framework.constraints.model.editor;bundle-version="2.1.0",
+ fr.labsticc.framework.constraints.model.editor,
  fr.labsticc.framework.settings.model.editor;bundle-version="1.0.0",
  fr.labsticc.framework.constraints.bless.service;bundle-version="1.0.0",
  fr.labsticc.framework.constraints.lute.service;bundle-version="1.0.0",
  fr.labsticc.framework.constraints.lute.view;bundle-version="1.0.0",
- fr.labsticc.framework.constraints.ocl.service;bundle-version="2.1.0",
- fr.labsticc.framework.constraints.ocl.view;bundle-version="2.1.0"
+ fr.labsticc.framework.constraints.ocl.service,
+ fr.labsticc.framework.constraints.ocl.view
 Bundle-ActivationPolicy: lazy
 Import-Package: fr.labsticc.framework.core.exception,
  fr.labsticc.framework.emf.core.resource,
