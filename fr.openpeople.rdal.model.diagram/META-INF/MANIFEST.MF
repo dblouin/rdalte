@@ -25,10 +25,10 @@ Require-Bundle: org.eclipse.core.expressions,
  org.eclipse.gmf.runtime.diagram.ui.resources.editor.ide,
  fr.openpeople.rdal.model.edit;visibility:=reexport,
  org.eclipse.ocl.ecore;visibility:=reexport,
- org.eclipse.ui.navigator.resources;bundle-version="3.4.201",
+ org.eclipse.ui.navigator.resources,
  fr.labsticc.framework.constraints.model.edit;visibility:=reexport,
  fr.labsticc.framework.settings.model.edit;visibility:=reexport,
- org.eclipse.gmf.runtime.diagram.ui.providers;bundle-version="1.4.0"
+ org.eclipse.gmf.runtime.diagram.ui.providers
 Bundle-ActivationPolicy: lazy
 Import-Package: fr.labsticc.framework.constraints.ide,
  fr.labsticc.framework.settings.ide,
