@@ -324,20 +324,20 @@ public class ReferencedDesignElementsPanel extends Composite {
 	
 	private void selectReferencedElements() {
 		final ReferencedModelElements currentRefModelElement = requirement.getSatisfiedBy();
-		final RefUserSelectedModelElements templRefModelElement;
+		final RefUserSelectedModelElements tempRefModelElement;
 		
 		if ( currentRefModelElement instanceof RefUserSelectedModelElements ) {
-			templRefModelElement = (RefUserSelectedModelElements) currentRefModelElement;
+			tempRefModelElement = (RefUserSelectedModelElements) currentRefModelElement;
 		}
 		else {
-			templRefModelElement = CoreFactory.eINSTANCE.createRefUserSelectedModelElements();
+			tempRefModelElement = CoreFactory.eINSTANCE.createRefUserSelectedModelElements();
 		}
 		
 		final RefModelElementsSelectionDialog dialog = new RefModelElementsSelectionDialog( getShell(),
 																							labelProvider,
-																							templRefModelElement,
-																							businessDelegate.modelElements( templRefModelElement ),
-																							businessDelegate.modelElementsChoice( requirement, templRefModelElement ));
+																							tempRefModelElement,
+																							businessDelegate.modelElements( tempRefModelElement ),
+																							businessDelegate.modelElementsChoice( requirement, tempRefModelElement ));
 		if ( dialog.open() == Window.OK ) {
 			final Collection<EObject> selectedElements = dialog.getResult();
 	
