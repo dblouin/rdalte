@@ -1,0 +1,41 @@
+Manifest-Version: 1.0
+Bundle-SymbolicName: org.osate.xtext.aadl2;singleton:=true
+Archiver-Version: Plexus Archiver
+Built-By: lw
+Require-Bundle: org.eclipse.xtext.generator;bundle-version="2.1.0";res
+ olution:=optional,org.osate.aadl2,org.osate.xtext.aadl2.properties,or
+ g.osate.contribution.sei,org.eclipse.emf.edit;bundle-version="2.7.0",
+ org.eclipse.core.runtime;bundle-version="3.7.0",org.apache.log4j;bund
+ le-version="1.2.15",org.apache.commons.logging;bundle-version="1.0.4"
+ ,org.eclipse.xtext;bundle-version="[2.8.0,2.9.0)";visibility:=reexpor
+ t,org.eclipse.xtext.util;bundle-version="[2.8.0,2.9.0)",org.antlr.run
+ time;bundle-version="3.2.0",org.osate.aadl2.modelsupport;visibility:=
+ reexport,org.eclipse.emf.mwe2.launch;bundle-version="2.1.0";resolutio
+ n:=optional,org.osate.xtext.aadl2.properties.ui,org.osate.annexsuppor
+ t;bundle-version="1.0.0",org.osate.workspace;bundle-version="1.0.0",o
+ rg.osate.core;bundle-version="1.0.0",org.eclipse.xtext.common.types;b
+ undle-version="[2.8.0,2.9.0)",org.eclipse.xtext.xbase;bundle-version=
+ "[2.8.0,2.9.0)";resolution:=optional;visibility:=reexport,org.eclipse
+ .emf.mwe.utils;resolution:=optional,org.objectweb.asm;bundle-version=
+ "[5.0.1,6.0.0)";resolution:=optional,org.eclipse.uml2.codegen.ecore;b
+ undle-version="1.9.100";resolution:=optional,org.eclipse.emf.transact
+ ion,org.eclipse.xtext.xbase.lib
+Bundle-ManifestVersion: 2
+Bundle-ActivationPolicy: lazy
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-Vendor: CMU-SEI
+Import-Package: org.apache.log4j,org.eclipse.xtext.xbase.lib
+Export-Package: org.osate.xtext.aadl2,org.osate.xtext.aadl2.formatting
+ ,org.osate.xtext.aadl2.linking,org.osate.xtext.aadl2.naming,org.osate
+ .xtext.aadl2.parser.antlr,org.osate.xtext.aadl2.parser.antlr.internal
+ ,org.osate.xtext.aadl2.parser.antlr.lexer,org.osate.xtext.aadl2.parsi
+ ng,org.osate.xtext.aadl2.scoping,org.osate.xtext.aadl2.serializer,org
+ .osate.xtext.aadl2.serializing,org.osate.xtext.aadl2.services,org.osa
+ te.xtext.aadl2.unparsing,org.osate.xtext.aadl2.util,org.osate.xtext.a
+ adl2.validation,org.osate.xtext.aadl2.valueconversion
+Bundle-Name: org.osate.xtext.aadl2
+Bundle-Version: 1.0.0.v20150702-1908
+Bundle-Activator: org.osate.xtext.aadl2.Activator
+Created-By: Apache Maven 3.2.1
+Build-Jdk: 1.8.0_45-internal
+
