@@ -339,6 +339,12 @@ and software configuration, nor that it will meet the Licensee&apos;s
 requirements.
    </license>
 
+   <requires>
+      <import feature="org.osate.core.patch" version="1.0.1.qualifier"/>
+      <import feature="fr.openpeople.models.aadl.default" version="1.0.1.qualifier"/>
+      <import feature="fr.openpeople.rdalte" version="1.1.0.qualifier"/>
+   </requires>
+
    <plugin
          id="fr.openpeople.rdalte.osate"
          download-size="0"

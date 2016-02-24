@@ -8,7 +8,7 @@
             name="%exampleCategoryName"
             parentCategory="org.eclipse.ui.Examples">
       </category>
-      <wizard
+      <!--wizard
             canFinishEarly="true"
             category="org.eclipse.ui.Examples/fr.openpeople.rdalte.osate.examples.category"
             class="fr.openpeople.rdalte.osate.examples.FPGAExamplesWizard"
@@ -19,7 +19,7 @@
          <description>
             %exampleWizardDescrFPGA
          </description>
-      </wizard>
+      </wizard-->
       <wizard
             canFinishEarly="true"
             category="org.eclipse.ui.Examples/fr.openpeople.rdalte.osate.examples.category"
