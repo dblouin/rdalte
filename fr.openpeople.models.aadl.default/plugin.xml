@@ -4,32 +4,32 @@
    <extension
          point="org.osate.pluginsupport.aadlcontribution">
       <aadlcontribution
-            file="resources/aadl/Basic_OP_Properties.aadl"
+            file="resources/Basic_OP_Properties.aadl"
             id="fr.openpeople.models.aadl.default.Basic_OP_Properties"
             name="Basic_OP_Properties">
       </aadlcontribution>
       <aadlcontribution
-            file="resources/aadl/generic_hw.aadl"
+            file="resources/generic_hw.aadl"
             id="fr.openpeople.models.aadl.default.generic_hw"
             name="generic_hw">
       </aadlcontribution>
       <aadlcontribution
-            file="resources/aadl/generic_fpga.aadl"
+            file="resources/generic_fpga.aadl"
             id="fr.openpeople.models.aadl.default.generic_fpga"
             name="generic_fpga">
       </aadlcontribution>
       <aadlcontribution
-            file="resources/aadl/Power_Properties.aadl"
+            file="resources/Power_Properties.aadl"
             id="fr.openpeople.models.aadl.default.Power_Properties"
             name="Power_Properties">
       </aadlcontribution>
       <aadlcontribution
-            file="resources/aadl/FPGA_Properties.aadl"
+            file="resources/FPGA_Properties.aadl"
             id="fr.openpeople.models.aadl.default.FPGA_Properties"
             name="FPGA_Properties">
       </aadlcontribution>
       <aadlcontribution
-            file="resources/aadl/OP_Thread_Properties.aadl"
+            file="resources/OP_Thread_Properties.aadl"
             id="fr.openpeople.models.aadl.default.OP_Thread_Properties"
             name="OP_Thread_Properties">
       </aadlcontribution>
