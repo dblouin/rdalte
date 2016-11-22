@@ -1,5 +1,5 @@
 -- *****************************************************************************************
--- ** Copyright (c) 2009 Lab-STICC, Université de Bretagne-Sud.                           **
+-- ** Copyright (c) 2009 Lab-STICC, Universitï¿½ de Bretagne-Sud.                           **
 -- ** All rights reserved. This program and the accompanying materials                    **
 -- ** are made available under the terms of the CeCILL-B FREE SOFTWARE LICENSE AGREEMENT  **
 -- ** which accompanies this distribution, and is available at                            **
@@ -786,11 +786,18 @@ context NamedElement def :threadLimit() :
 	PropertyExpression = propertyValues( deploymentPropertiesPropertySetName(), threadLimitName())->first()
 
 -------------------- Communication ------------------------
-context NamedElement def :actualLatency() :
-	Integer = integerValues( communicationPropertiesPropertySetName(), actualLatencyName() )->first()
+context NamedElement def :actualLatencyTimeMin( p_unit : String ) :
+	Real = integerRangeMinPropertyValues( communicationPropertiesPropertySetName(), actualLatencyName() )->collect( convertedValue( p_unit ) )->asOrderedSet()->first()
 
-context NamedElement def :latency() :
-	PropertyExpression = propertyValues( communicationPropertiesPropertySetName(), latencyName() )->first()
+context NamedElement def :actualLatencyTimeMax( p_unit : String ) :
+	Real = integerRangeMaxPropertyValues( communicationPropertiesPropertySetName(), actualLatencyName() )->collect( convertedValue( p_unit ) )->asOrderedSet()->first()
+
+context NamedElement def :latencyTimeMin( p_unit : String ) :
+	Real = integerRangeMinPropertyValues( communicationPropertiesPropertySetName(), latencyName() )->collect( convertedValue( p_unit ) )->asOrderedSet()->first()
+
+context NamedElement def :latencyTimeMax( p_unit : String ) :
+	Real = integerRangeMaxPropertyValues( communicationPropertiesPropertySetName(), latencyName() )->collect( convertedValue( p_unit ) )->asOrderedSet()->first()
+--	Integer = integerValues( communicationPropertiesPropertySetName(), latencyName() )->first()
 
 context NamedElement def :overflowHandlingProtocol() :
 	PropertyExpression = propertyValues( communicationPropertiesPropertySetName(), overflowHandlingProtocolName() )->first()
