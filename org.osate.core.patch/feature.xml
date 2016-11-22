@@ -2,7 +2,7 @@
 <feature
       id="org.osate.core.patch"
       label="Lab-STICC UBS OSATE2 Patch"
-      version="1.0.1.qualifier"
+      version="1.1.0.qualifier"
       provider-name="Lab-STICC UBS">
 
    <description url="http://www.example.com/description">
@@ -18,7 +18,7 @@
    </license>
 
    <requires>
-      <import feature="org.osate.core.feature" version="2.1.2.qualifier" patch="true"/>
+      <import feature="org.osate.core.feature" version="2.2.1.qualifier" patch="true"/>
    </requires>
 
    <plugin
