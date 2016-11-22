@@ -1,0 +1,30 @@
+package fr.openpeople.rdal.ide.osate.aspects;
+
+import org.eclipse.xtext.naming.IQualifiedNameProvider;
+import org.osate.xtext.aadl2.AbstractAadl2RuntimeModule;
+
+import com.google.inject.Binder;
+import com.google.inject.Key;
+import com.google.inject.binder.LinkedBindingBuilder;
+
+import fr.openpeople.rdal.ide.osate.RdalAadl2QualifiedNameProvider;
+
+public aspect QualifiedNameProviderBinding {
+	
+	public QualifiedNameProviderBinding() {
+		System.out.println( "Creating aspect " + getClass().getName() + "..." );
+	}
+
+	pointcut bindPointCut( AbstractAadl2RuntimeModule p_module, Binder p_binder ) : 
+		execution( public void AbstractAadl2RuntimeModule.configure( Binder ) )
+		&& target( p_module )
+		&& args( p_binder );
+
+    after( AbstractAadl2RuntimeModule p_module, Binder p_binder ) 
+    	returning : bindPointCut( p_module, p_binder ) {
+    	
+		final Key<IQualifiedNameProvider> key = Key.get( IQualifiedNameProvider.class);
+		final LinkedBindingBuilder<IQualifiedNameProvider> builder = p_binder.bind( key );
+		builder.to( RdalAadl2QualifiedNameProvider.class );
+    }
+}

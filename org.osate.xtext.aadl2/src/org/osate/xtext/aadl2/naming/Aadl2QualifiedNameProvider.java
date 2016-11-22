@@ -45,6 +45,7 @@ import org.eclipse.xtext.nodemodel.util.NodeModelUtils;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.Classifier;
+import org.osate.aadl2.Connection;
 import org.osate.aadl2.Feature;
 import org.osate.aadl2.Flow;
 import org.osate.aadl2.NamedElement;
@@ -87,71 +88,39 @@ public class Aadl2QualifiedNameProvider extends DefaultDeclarativeQualifiedNameP
 					getAnnexLinkingServiceRegistry();
 				}
 				if (annexlinkingserviceregistry != null) {
-					AnnexLinkingService linkingservice = getAnnexLinkingServiceRegistry().getAnnexLinkingService(
-							annexName);
+					AnnexLinkingService linkingservice = getAnnexLinkingServiceRegistry()
+							.getAnnexLinkingService(annexName);
 					if (linkingservice != null) {
 						return linkingservice.getFullyQualifiedName(obj);
 					}
 				}
 			}
 		}
-		
-		if (	obj instanceof AadlPackage || 
-				obj instanceof Classifier || 
-				obj instanceof PropertyConstant || 
-				obj instanceof Property || 
-				obj instanceof PropertySet || 
-				obj instanceof PropertyType ||
+		if (obj instanceof AadlPackage || obj instanceof Classifier || obj instanceof PropertyConstant
+				|| obj instanceof Property || obj instanceof PropertySet || obj instanceof PropertyType ||
 				// DB: We also want a qualified name for package sections
 				obj instanceof PackageSection ||
 				// DB: We also want a qualified name for features
 				obj instanceof Feature ||
 				// DB: We also want a qualified name for subcomponents
 				obj instanceof Subcomponent ||
+				obj instanceof Connection ||
 				obj instanceof Flow ) {
-//			if ( ((NamedElement)obj).getName() == null) {
-//				return null;
-//			}
-				
 			final String name = getTheName( (NamedElement) obj );
 			
 			if ( name != null ) {
 				return getConverter().toQualifiedName( name );
 			}
+//			if (((NamedElement) obj).getName() == null) {
+//				return null;
+//			}
+//			return getConverter().toQualifiedName(getTheName((NamedElement) obj));
 		}
-		
+
 		return null;
 	}
 
-	protected String getTheName(NamedElement namedElement) {
-		// DB Work around to avoid cyclic resolution of lazy link error for refined features and subcomponents
-		if ( 	namedElement instanceof Feature &&
-				( (Feature) namedElement ).eIsSet( Aadl2Package.eINSTANCE.getFeature_Refined() ) ) {
-	         return NamedElementOperations.qualifiedName( namedElement, getNameFromNode( namedElement, Aadl2Package.eINSTANCE.getFeature_Refined() ) );
-	    }
-
-		if ( 	namedElement instanceof Subcomponent &&
-				( (Subcomponent) namedElement ).eIsSet( Aadl2Package.eINSTANCE.getSubcomponent_Refined() ) ) {
-	         return NamedElementOperations.qualifiedName( namedElement, getNameFromNode( namedElement, Aadl2Package.eINSTANCE.getSubcomponent_Refined() ) );
-	    }
-
-		if ( namedElement.getName() != null ) {
-		
-			// DB: Reuse the logic coded in the model. The previous commented code erroneously returned the simple name for features.
-			return namedElement.getQualifiedName();
-//				Namespace namespace = namedElement.getNamespace();
-//				if (namespace != null ) {
-//					if (namespace instanceof PropertySet && namespace.hasName())
-//						return namespace.getName() + "::" + namedElement.getName();
-//					else if (namespace instanceof PackageSection && ((AadlPackage)namespace.getOwner()).hasName())
-//						return ((AadlPackage)namespace.getOwner()).getName() + "::" + namedElement.getName();
-//					else
-//						return namedElement.getName();
-//				} else
-//					return namedElement.getName();
-		}
-				
-		return null;//"<noname>";
+//	protected String getTheName(NamedElement namedElement) {
 //		if (namedElement.getName() != null) {
 //			Namespace namespace = namedElement.getNamespace();
 //			if (namespace != null) {
@@ -168,6 +137,53 @@ public class Aadl2QualifiedNameProvider extends DefaultDeclarativeQualifiedNameP
 //		} else {
 //			return "<noname>";
 //		}
+//	}
+//
+
+	protected String getTheName(NamedElement namedElement) {
+		// DB Work around to avoid cyclic resolution of lazy link error for refined features and subcomponents
+		if ( 	namedElement instanceof Feature &&
+				( (Feature) namedElement ).eIsSet( Aadl2Package.eINSTANCE.getFeature_Refined() ) ) {
+	         return qualifiedName( namedElement, getNameFromNode( namedElement, Aadl2Package.eINSTANCE.getFeature_Refined() ) );
+	    }
+
+		if ( 	namedElement instanceof Subcomponent &&
+				( (Subcomponent) namedElement ).eIsSet( Aadl2Package.eINSTANCE.getSubcomponent_Refined() ) ) {
+	         return qualifiedName( namedElement, getNameFromNode( namedElement, Aadl2Package.eINSTANCE.getSubcomponent_Refined() ) );
+	    }
+
+		if ( namedElement.getName() != null ) {
+		
+			// DB: Reuse the logic coded in the model. The previous commented code erroneously returned the simple name for features.
+			return namedElement.getQualifiedName();
+		}
+				
+		return null;
+	}
+	
+	/**
+	 * DB: Added to fix qualified name provider problem of refined features
+	 * @param p_namedElement
+	 * @param p_elemName
+	 * @return
+	 */
+	public String qualifiedName(	final NamedElement p_namedElement,
+									final String p_elemName ) {
+		final Namespace namespace = p_namedElement.getNamespace();
+			
+		if ( namespace != null ) {
+			if ( namespace instanceof PropertySet && namespace.hasName() ) {
+				return namespace.getName() + "::" + p_elemName;
+			}
+			
+			if ( namespace instanceof PackageSection && ( (AadlPackage) namespace.getOwner() ).hasName() ) {
+				return ((AadlPackage) namespace.getOwner()).getName() + getDelimiter() + p_elemName;
+			}
+			
+			return NamedElementOperations.qualifiedName( namespace ) + '.' + p_elemName;
+		}
+		
+		return p_elemName;
 	}
 	
 	private String getNameFromNode( final NamedElement p_namedElement,
@@ -181,5 +197,4 @@ public class Aadl2QualifiedNameProvider extends DefaultDeclarativeQualifiedNameP
 	public String getDelimiter() {
 		return "::";
 	}
-
 }
