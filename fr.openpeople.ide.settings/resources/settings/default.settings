@@ -26,6 +26,7 @@
       <associatedTypes href="http://aadl.info/AADL/2.0/instance#//FlowSpecificationInstance"/>
       <associatedTypes href="http://aadl.info/AADL/2.0#//FlowElement"/>
       <associatedTypes href="http://aadl.info/AADL/2.0#//Flow"/>
+      <associatedTypes href="http://aadl.info/AADL/2.0#//Connection"/>
     </typesAssociations>
     <typesAssociations id="satisfiedByContainers" name="satisfiedByContainers" description="" containers="true">
       <property href="http:///www.open-people.fr/rdal/core#//ModelElementReference/modelElement"/>
