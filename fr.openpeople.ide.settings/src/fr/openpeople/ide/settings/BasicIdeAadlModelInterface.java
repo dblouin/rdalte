@@ -2,6 +2,7 @@ package fr.openpeople.ide.settings;
 
 import java.util.Set;
 
+import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.jface.text.ITextSelection;
@@ -221,15 +222,14 @@ public class BasicIdeAadlModelInterface extends AbstractAadlModelInterface /*imp
 		if ( p_selection instanceof TextSelection && p_editor instanceof XtextEditor ) {
 			final ITextSelection selection = (ITextSelection) p_selection;
 			final XtextEditor editor = (XtextEditor) p_editor;
+			final IResource editorRes = editor.getResource();
 			
-			try {
-				final XtextResource resource = (XtextResource) EMFUtil.convertToEMFResource( editor.getResource(), getCustomResourcet() );
-				
-				return eObjectOffsetHelper.resolveElementAt( resource, selection.getOffset() );
+			if ( editorRes == null ) {
+				return null;
 			}
-			catch ( final CoreException p_ex ) {
-				// TODO
-			}
+			
+			final XtextResource resource = (XtextResource) EMFUtil.convertToEMFResource( editorRes, getCustomResourcet() );
+			return eObjectOffsetHelper.resolveElementAt( resource, selection.getOffset() );
 		}
 		
 		return null;
