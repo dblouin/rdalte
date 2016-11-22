@@ -150,7 +150,7 @@ public class RdalDiagramEditorPlugin extends AbstractUIPlugin {
 		try {
 			p_factories.addAll(getExternalAdapterFactories());
 		} catch (final CoreException p_ex) {
-			logError( "Unable to add external facories.", p_ex);
+			logError( "Unable to add external factories.", p_ex);
 		}
 		//		factories.add(new ConnectionItemProviderAdapterFactory());
 		//		factories.add(new PropertyItemProviderAdapterFactory());
