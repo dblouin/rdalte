@@ -25,7 +25,7 @@
             category="org.eclipse.ui.Examples/fr.openpeople.rdalte.osate.examples.category"
             class="fr.openpeople.rdalte.osate.examples.IsoletteExamplesWizard"
             hasPages="false"
-            id="fr.openpeople.rdalte.osate.examples.ExamplesWizard"
+            id="fr.openpeople.rdalte.osate.examples.IsoletteExamplesWizard"
             name="%exampleWizardNameIsolette"
             project="true">
          <description>
