@@ -5,12 +5,9 @@
       version="1.1.0.qualifier"
       provider-name="Lab-STICC UBS">
 
-   <description url="http://www.open-people.fr/">
+   <description url="https://mem4csd.telecom-paristech.fr/blog/index.php/rdal/">
       The Requirements Definition and Analysis Language Tool Environment
-(RDALTE) has been developed by the Lab-STICC research lab in
-the frame of the Open-PEOPLE project. It is a set of plug-ins
-on top of the open source Eclipse platform (www.eclipse.org)
-that provides a toolset for front-end processing of RDAL specifications
+(RDALTE) provides a toolset for front-end processing of RDAL specifications
 and for their verification over architecture models of various
 languages.
    </description>
@@ -23,7 +20,7 @@ at :
 en : http://www.cecill.info/licences/Licence_CeCILL-B_V1-en.html
 fr : http://www.cecill.info/licences/Licence_CeCILL-B_V1-fr.html
 Contributors:
-Dominique BLOUIN (Lab-STICC UBS), dominique.blouin@univ-ubs.fr,
+Dominique BLOUIN (Telecom ParisTech), dominique.blouin@telecom-paristech.fr,
 dominique.blouin@laposte.net
 Skander TURKI (Taif University), skanderturki@gmail.com
    </copyright>
@@ -344,6 +341,10 @@ that it will be compatible with the Licensee&apos;s own equipment
 and software configuration, nor that it will meet the Licensee&apos;s
 requirements.
    </license>
+
+   <url>
+      <discovery label="RDAL Website" url="https://mem4csd.telecom-paristech.fr/blog/index.php/rdal/"/>
+   </url>
 
    <includes
          id="fr.openpeople.rdalte"
